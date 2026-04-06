@@ -33,13 +33,11 @@ const navItems = [
   { id: 'wb', label: 'Computadoras W&B', icon: Calculator, href: '/wb' },
 ];
 
-const DEMO_USER = { email: 'operador@fstd.com', name: 'Eduardo Forgan', role: 'Operador', abbr: 'FOR', color: '#f59e0b', pass: 'demo123' };
-
 export default function Sidebar() {
   const pathname = usePathname();
   const { user, qtg, reqs, docs, checklist } = useAppStore();
 
-  const effectiveUser = user ?? DEMO_USER;
+  const effectiveUser = user!;
 
   const getProgress = (id: string) => {
     switch (id) {

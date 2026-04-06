@@ -28,7 +28,7 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
-      user: null,
+      user: { email: 'operador@fstd.com', name: 'Eduardo Forgan', role: 'Operador', abbr: 'FOR', color: '#f59e0b', pass: 'demo123' },
       qtg: QTG_DATA,
       reqs: FASES_DATA.reduce((acc, f) => {
         f.requisitos.forEach(r => { acc[r.id] = r.done; });
