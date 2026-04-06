@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-import { X, CheckCircle2, AlertCircle, Calendar, Clock, User, FileText, Download, Activity, Zap } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, Calendar, Clock, User, FileText, Download, Activity, Zap, Trash2, PenTool } from 'lucide-react';
 import { QTGTest } from '@/types';
 import { useAppStore } from '@/store/useAppStore';
 import { generateQTGReport } from '@/lib/reportGenerator';
 import { useTelemetry } from '@/hooks/useTelemetry';
+import SignatureCanvas from 'react-signature-canvas';
 
 interface Props {
   test: QTGTest;
@@ -29,6 +30,10 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
   const [comments, setComments] = useState('');
   const [date] = useState(new Date().toLocaleDateString('es-AR'));
   const [time] = useState(new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }));
+  
+  // Signature ref
+  const sigCanvas = useRef<SignatureCanvas | null>(null);
+  const [hasSignature, setHasSignature] = useState(false);
 
   // Telemetría Live
   const { data: tel } = useTelemetry(isReady);
@@ -43,9 +48,15 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
     if (isReady) onClose();
   };
 
-  const handleApprove = () => {
+  const handleApprove = (signature?: string) => {
     updateQTG(test.id, { status: 'approved' });
     saveSession(); // Registramos en el historial
+    
+    // Si queremos que el PDF individual ya salga con la firma:
+    if (signature) {
+       // Podríamos guardarlo en el store si quisiéramos persistencia de firma por test
+    }
+    
     handleClose();
   };
 
@@ -295,25 +306,38 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
             </div>
           </div>
 
-          {/* Observaciones */}
+          {/* Firma Digital */}
           <div className="space-y-3">
             <label className="text-xs font-black uppercase text-slate-500 flex items-center gap-2">
-              <FileText size={14} /> Observaciones del Inspector
+              <PenTool size={14} /> Firma del Inspector (Tablet Canvas)
             </label>
-            <textarea 
-              rows={4}
-              value={comments}
-              onChange={(e) => setComments(e.target.value)}
-              placeholder="Describa cualquier desviación o comentario técnico aquí..."
-              className="w-full bg-slate-50 border-2 border-slate-200 p-6 rounded-2xl text-lg font-medium focus:border-blue-500 outline-none transition-all resize-none"
-            />
+            <div className="relative bg-slate-50 border-2 border-slate-200 rounded-2xl overflow-hidden h-40">
+               <SignatureCanvas 
+                 ref={sigCanvas}
+                 onBegin={() => setHasSignature(true)}
+                 penColor="black"
+                 canvasProps={{
+                    className: 'w-full h-full cursor-crosshair',
+                    style: { width: '100%', height: '100%' }
+                 }}
+               />
+               <button 
+                 onClick={() => { sigCanvas.current?.clear(); setHasSignature(false); }}
+                 className="absolute top-4 right-4 p-2 rounded-lg bg-white/80 hover:bg-white text-slate-400 hover:text-red-500 transition-all shadow-sm"
+               >
+                 <Trash2 size={18} />
+               </button>
+            </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="bg-slate-100 p-8 border-t-2 border-slate-200 flex gap-6 mt-auto">
           <button 
-            onClick={handleApprove}
+            onClick={() => {
+              const sig = sigCanvas.current?.toDataURL();
+              handleApprove(sig);
+            }}
             className="flex-1 bg-green-600 hover:bg-green-700 text-white py-6 rounded-2xl font-black text-xl flex items-center justify-center gap-3 shadow-lg shadow-green-900/20 transition-all active:scale-95"
           >
             <CheckCircle2 size={28} />

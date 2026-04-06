@@ -84,12 +84,30 @@ export const generateQTGReport = (tests: QTGTest[], metadata: any) => {
   // Footer / Signatures
   const finalY = doc.lastAutoTable.finalY + 30;
   
+  if (metadata.signature) {
+    try {
+        doc.addImage(metadata.signature, 'PNG', 35, finalY - 20, 45, 18);
+    } catch (e) {
+        console.error('Error adding signature to PDF', e);
+    }
+  }
+
   doc.setFontSize(10);
+  doc.setTextColor(30, 41, 59);
   doc.text('__________________________', 40, finalY);
-  doc.text('Firma Inspector ANAC', 43, finalY + 5);
+  doc.setFont('helvetica', 'bold');
+  doc.text(metadata.evaluator || 'Inspector ANAC / CEAC', 40, finalY + 5);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.text('Firma Autorizada', 40, finalY + 10);
   
+  doc.setFontSize(10);
   doc.text('__________________________', 130, finalY);
-  doc.text('Responsable Técnico 6XSIM', 132, finalY + 5);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Responsable Técnico 6XSIM', 130, finalY + 5);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.text('Ingeniería de Sistemas FSTD', 130, finalY + 10);
 
   // Save
   doc.save(`QTG_Report_R44_${new Date().toISOString().split('T')[0]}.pdf`);

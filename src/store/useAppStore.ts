@@ -12,7 +12,9 @@ interface AppState {
   activity: Activity[];
   snapshots: Snapshot[];
   checklist: Record<string, boolean>;
-  sessions: any[]; // Historial de sesiones QTG (snapshots)
+  sessions: any[]; // Historial de sesiones QTG
+  maintenanceLogs: any[]; // Novedades técnicas
+  preFlightChecklist: Record<string, boolean>; // Checklist operativo del hardware
   
   // Actions
   setUser: (user: User | null) => void;
@@ -24,6 +26,8 @@ interface AppState {
   toggleChecklist: (id: string) => void;
   addSnapshot: (snapshot: Snapshot) => void;
   saveSession: () => void;
+  addMaintenanceLog: (log: any) => void;
+  togglePreFlight: (id: string) => void;
   resetState: () => void;
 }
 
@@ -42,6 +46,8 @@ export const useAppStore = create<AppState>()(
       snapshots: [],
       checklist: {},
       sessions: [],
+      maintenanceLogs: [],
+      preFlightChecklist: {},
 
       setUser: (user) => set({ user }),
       
@@ -96,6 +102,20 @@ export const useAppStore = create<AppState>()(
         ]
       })),
 
+      addMaintenanceLog: (log) => set((state) => ({
+        maintenanceLogs: [
+          { ...log, id: `LOG-${Date.now()}`, time: new Date().toLocaleString() },
+          ...state.maintenanceLogs
+        ]
+      })),
+
+      togglePreFlight: (id) => set((state) => ({
+        preFlightChecklist: { 
+          ...state.preFlightChecklist, 
+          [id]: !state.preFlightChecklist[id] 
+        }
+      })),
+
       resetState: () => set({
         qtg: QTG_DATA,
         reqs: FASES_DATA.reduce((acc, f) => {
@@ -108,10 +128,12 @@ export const useAppStore = create<AppState>()(
         snapshots: [],
         checklist: {},
         sessions: [],
+        maintenanceLogs: [],
+        preFlightChecklist: {},
       }),
     }),
     {
-      name: 'fstd-r44-storage-v2',
+      name: 'fstd-r44-storage-v3',
       storage: createJSONStorage(() => localStorage),
     }
   )

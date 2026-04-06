@@ -14,7 +14,11 @@ import {
   ShieldCheck,
   Zap,
   History,
-  Library
+  Library,
+  ClipboardCheck,
+  Gamepad,
+  Wrench,
+  Navigation
 } from 'lucide-react';
 import { useAppStore } from '@/store/useAppStore';
 import { clsx, type ClassValue } from 'clsx';
@@ -26,19 +30,21 @@ function cn(...inputs: ClassValue[]) {
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/' },
+  { id: 'pre-flight', label: 'Pre-Flight', icon: ClipboardCheck, href: '/pre-flight' },
+  { id: 'calibracion', label: 'Calibración', icon: Gamepad, href: '/calibracion' },
   { id: 'qtg', label: 'Gestión QTG', icon: FileText, href: '/qtg' },
+  { id: 'mantenimiento', label: 'Mantenimiento', icon: Wrench, href: '/mantenimiento' },
+  { id: 'control', label: 'Mission Control', icon: Navigation, href: '/control' },
   { id: 'fases', label: 'Fases Certificación', icon: CheckSquare, href: '/fases' },
   { id: 'monitor', label: 'Monitor HW (XR4)', icon: Zap, href: '/monitor' },
   { id: 'history', label: 'Historial', icon: History, href: '/history' },
   { id: 'biblioteca', label: 'Biblioteca POH', icon: Library, href: '/biblioteca' },
   { id: 'normativa', label: 'Normativa RAAC', icon: ShieldCheck, href: '/normativa' },
-  { id: 'visual', label: 'Recursos Visuales', icon: ImageIcon, href: '/visual' },
-  { id: 'wb', label: 'Computadoras W&B', icon: Calculator, href: '/wb' },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const { user, qtg, reqs, docs, checklist } = useAppStore();
+  const { user, qtg, reqs, docs, preFlightChecklist } = useAppStore();
 
   const effectiveUser = user!;
 
@@ -47,11 +53,15 @@ export default function Sidebar() {
       case 'qtg':
         return Math.round((qtg.filter(q => q.status === 'approved').length / qtg.length) * 100);
       case 'fases':
-        const done = Object.values(reqs).filter(Boolean).length;
-        const total = Object.keys(reqs).length;
-        return Math.round((done / total) * 100);
+        const doneReqs = Object.values(reqs).filter(Boolean).length;
+        const totalReqs = Object.keys(reqs).length;
+        return totalReqs > 0 ? Math.round((doneReqs / totalReqs) * 100) : 0;
+      case 'pre-flight':
+        const donePF = Object.values(preFlightChecklist).filter(Boolean).length;
+        const totalPF = 6; // PRE_FLIGHT_DATA.length or constant
+        return Math.round((donePF / totalPF) * 100);
       case 'docs':
-        return Math.round((docs.filter(d => d.status.includes('✅')).length / docs.length) * 100);
+        return docs.length > 0 ? Math.round((docs.filter(d => d.status.includes('✅')).length / docs.length) * 100) : 0;
       default:
         return 0;
     }
