@@ -9,7 +9,6 @@ import {
   AlertTriangle,
   Settings2,
   Info,
-  TrendingUp,
   Gauge,
   ArrowUpDown,
 } from 'lucide-react';
@@ -122,125 +121,105 @@ export default function HVCurvePage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
 
         {/* ── Panel de Controles ────────────────────────────────────────── */}
-        <div className="lg:col-span-1 space-y-5">
-          <div className="glass rounded-[2rem] p-6 border-white/5 shadow-xl sticky top-24">
-            <div className="flex items-center gap-3 mb-8">
+        <div className="lg:col-span-1">
+          <div className="glass rounded-[2rem] p-6 border-white/5 shadow-xl flex flex-col gap-6">
+            <div className="flex items-center gap-3">
               <Settings2 className="w-5 h-5 text-brand-light" />
-              <h3 className="text-white font-display font-bold uppercase tracking-widest text-sm">
-                Parámetros
-              </h3>
+              <h3 className="text-white font-display font-bold uppercase tracking-widest text-sm">Parámetros</h3>
             </div>
-
-            <div className="space-y-8">
-
-              {/* Peso */}
-              <DualInput
-                label="Peso"
-                unit="kg"
-                icon={<Weight className="w-3.5 h-3.5" />}
-                value={weight}
-                min={2000}
-                max={3000}
-                step={50}
-                onChange={setWeight}
-                minLabel="Mín 2000"
-                maxLabel="MTOW 3000"
-              />
-
-              {/* Altitud */}
-              <div className="pt-4 border-t border-white/5">
-                <DualInput
-                  label="Altitud"
-                  unit="ft"
-                  icon={<Wind className="w-3.5 h-3.5" />}
-                  value={altitude}
-                  min={0}
-                  max={10000}
-                  step={500}
-                  onChange={setAltitude}
-                  minLabel="MSL 0"
-                  maxLabel="Max 10 000"
-                />
-              </div>
-
-              {/* Condición Motor */}
-              <div className="space-y-3 pt-4 border-t border-white/5">
-                <label className="text-xs font-bold text-white/50 uppercase tracking-widest flex items-center gap-2">
-                  <AlertTriangle className="w-3.5 h-3.5" /> Condición Motor
-                </label>
-                <div className="flex flex-col gap-3">
-                  <button
-                    onClick={() => setCondition('oei')}
-                    className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest transition-all ${
-                      condition === 'oei'
-                        ? 'bg-amber-500/10 border-amber-500/50 text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.2)]'
-                        : 'bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Monomotor (OEI)
-                  </button>
-                  <button
-                    onClick={() => setCondition('autorotation')}
-                    className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-[0.1em] transition-all leading-relaxed ${
-                      condition === 'autorotation'
-                        ? 'bg-red-500/10 border-red-500/50 text-red-500 shadow-[0_0_20px_rgba(239,68,68,0.2)]'
-                        : 'bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Falla Total (Auto)
-                  </button>
-                </div>
-              </div>
-
-              {/* Nota informativa */}
-              <div className="p-4 bg-white/5 rounded-xl border border-white/5 flex items-start gap-3">
-                <Info className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
-                <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold leading-relaxed">
-                  Mayor peso y altitud reducen el margen aerodinámico, expandiendo el Avoid Area.
-                </p>
+            <DualInput
+              label="Peso"
+              unit="kg"
+              icon={<Weight className="w-3.5 h-3.5" />}
+              value={weight}
+              min={2000}
+              max={3000}
+              step={50}
+              onChange={setWeight}
+              minLabel="Mín 2000"
+              maxLabel="MTOW 3000"
+            />
+            <DualInput
+              label="Altitud"
+              unit="ft"
+              icon={<Wind className="w-3.5 h-3.5" />}
+              value={altitude}
+              min={0}
+              max={10000}
+              step={500}
+              onChange={setAltitude}
+              minLabel="MSL 0"
+              maxLabel="Max 10 000"
+            />
+            <div className="space-y-3">
+              <label className="text-xs font-bold text-white/50 uppercase tracking-widest flex items-center gap-2">
+                <AlertTriangle className="w-3.5 h-3.5" /> Condición Motor
+              </label>
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => setCondition('oei')}
+                  className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest transition-all ${
+                    condition === 'oei'
+                      ? 'bg-amber-500/10 border-amber-500/50 text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.2)]'
+                      : 'bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  Monomotor (OEI)
+                </button>
+                <button
+                  onClick={() => setCondition('autorotation')}
+                  className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-[0.1em] transition-all leading-relaxed ${
+                    condition === 'autorotation'
+                      ? 'bg-red-500/10 border-red-500/50 text-red-500 shadow-[0_0_20px_rgba(239,68,68,0.2)]'
+                      : 'bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  Falla Total (Auto)
+                </button>
               </div>
             </div>
-          </div>
-
-          {/* ── Panel de Métricas Calculadas ───────────────────────────── */}
-          <div className="glass rounded-[2rem] p-6 border-white/5 shadow-xl space-y-4">
-            <div className="flex items-center gap-3 mb-2">
-              <TrendingUp className="w-5 h-5 text-brand-light" />
-              <h3 className="text-white font-display font-bold uppercase tracking-widest text-sm">
-                Métricas
-              </h3>
+            <div className="p-3 bg-white/5 rounded-xl border border-white/5 flex items-start gap-2">
+              <Info className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
+              <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold leading-relaxed">
+                Mayor peso y altitud expanden el Avoid Area.
+              </p>
             </div>
-
-            <MetricRow
-              icon={<Gauge className="w-4 h-4 text-amber-400" />}
-              label="Knee Speed"
-              value={`${metrics.kneeSpeed} KIAS`}
-              sub="Velocidad mín. segura"
-              highlight="amber"
-            />
-            <MetricRow
-              icon={<ArrowUpDown className="w-4 h-4 text-red-400" />}
-              label="Altura Máx. Avoid"
-              value={`${metrics.maxAvoidHeight} ft`}
-              sub="A 0 KIAS (hover)"
-              highlight="red"
-            />
-            <MetricRow
-              icon={<Wind className="w-4 h-4 text-green-400" />}
-              label="Ventana Segura"
-              value={metrics.safeWindow > 0 ? `${metrics.kneeSpeed}–${metrics.hsStart} KIAS` : 'Reducida'}
-              sub="Corredor de baja alt."
-              highlight={metrics.safeWindow > 20 ? 'green' : 'red'}
-            />
           </div>
         </div>
 
-        {/* ── Gráfico Principal ─────────────────────────────────────────── */}
-        <div className="lg:col-span-3">
-          <div className="glass rounded-[2.5rem] p-4 md:p-8 border-white/5 shadow-2xl overflow-hidden min-h-[600px] flex flex-col relative group">
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-white/[0.02] pointer-events-none" />
+        {/* ── Gráfico + Métricas ────────────────────────────────────────── */}
+        <div className="lg:col-span-3 flex flex-col gap-6">
+
+          {/* Gráfico */}
+          <div className="glass rounded-[2.5rem] p-4 md:p-8 border-white/5 shadow-2xl min-h-[560px] flex flex-col">
             <HVChart weight={weight} altitude={altitude} condition={condition} />
           </div>
+
+          {/* Métricas horizontales */}
+          <div className="flex flex-row gap-4">
+            <MetricCard
+              icon={<Gauge className="w-5 h-5 text-amber-400" />}
+              label="Knee Speed"
+              value={`${metrics.kneeSpeed} KIAS`}
+              sub="Velocidad mínima segura"
+              highlight="amber"
+            />
+            <MetricCard
+              icon={<ArrowUpDown className="w-5 h-5 text-red-400" />}
+              label="Altura Máx. Avoid"
+              value={`${metrics.maxAvoidHeight} ft`}
+              sub="A 0 KIAS en hover"
+              highlight="red"
+            />
+            <MetricCard
+              icon={<Wind className="w-5 h-5 text-green-400" />}
+              label="Ventana Segura"
+              value={metrics.safeWindow > 0 ? `${metrics.kneeSpeed}–${metrics.hsStart} KIAS` : 'Reducida'}
+              sub="Corredor de baja altitud"
+              highlight={metrics.safeWindow > 20 ? 'green' : 'red'}
+            />
+          </div>
+
         </div>
 
       </div>
@@ -249,11 +228,11 @@ export default function HVCurvePage() {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// Subcomponente: fila de métrica
+// Subcomponente: tarjeta de métrica horizontal
 // ────────────────────────────────────────────────────────────────────────────
 type HighlightColor = 'amber' | 'red' | 'green';
 
-function MetricRow({
+function MetricCard({
   icon,
   label,
   value,
@@ -271,14 +250,19 @@ function MetricRow({
     red:   'text-red-400',
     green: 'text-green-400',
   };
+  const borders: Record<HighlightColor, string> = {
+    amber: 'border-amber-500/20',
+    red:   'border-red-500/20',
+    green: 'border-green-500/20',
+  };
 
   return (
-    <div className="flex items-center gap-3 p-3 bg-white/5 rounded-xl border border-white/5">
+    <div className={`glass rounded-2xl p-5 border ${borders[highlight]} flex items-center gap-4 flex-1`}>
       <div className="shrink-0">{icon}</div>
-      <div className="flex-1 min-w-0">
-        <p className="text-[9px] font-bold uppercase tracking-widest text-white/30">{label}</p>
-        <p className={`text-sm font-black truncate ${colors[highlight]}`}>{value}</p>
-        <p className="text-[9px] text-white/25 uppercase tracking-widest">{sub}</p>
+      <div className="min-w-0">
+        <p className="text-[9px] font-bold uppercase tracking-widest text-white/30 mb-0.5">{label}</p>
+        <p className={`text-xl font-black truncate ${colors[highlight]}`}>{value}</p>
+        <p className="text-[9px] text-white/25 uppercase tracking-widest mt-0.5">{sub}</p>
       </div>
     </div>
   );
