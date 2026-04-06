@@ -16,21 +16,5 @@ export default function Home() {
 
   if (!mounted) return null;
 
-  return (
-    <>
-      {!user ? (
-        <div className="fixed inset-0 z-[100] bg-bg-deep overflow-y-auto overflow-x-hidden">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="fixed -top-[20%] -left-[10%] w-[50%] h-[60%] bg-brand/10 blur-[120px] rounded-full" />
-            <div className="fixed -bottom-[20%] -right-[10%] w-[50%] h-[60%] bg-accent/10 blur-[120px] rounded-full" />
-          </div>
-          <div className="min-h-full w-full flex items-center justify-center py-12 px-4 relative z-10">
-            <LoginForm />
-          </div>
-        </div>
-      ) : (
-        <DashboardView />
-      )}
-    </>
-  );
+  return <DashboardView />;
 }
