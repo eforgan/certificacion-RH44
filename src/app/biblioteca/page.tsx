@@ -15,18 +15,18 @@ export default function BibliotecaPage() {
     { 
       id: 1, 
       title: 'Robinson R44 II POH', 
-      date: 'Rev Dec 2023', 
-      size: '12.4 MB', 
-      type: 'Sustituto Oficial',
-      url: 'https://robinsonheli.com/wp-content/uploads/2015/11/r44_poh_full_version.pdf'
+      date: 'Sustituir con tu PDF', 
+      size: 'Local', 
+      type: 'Oficial',
+      url: '/docs/r44_poh.pdf'
     },
     { 
       id: 2, 
       title: 'RAAC Parte 60 - FSTD', 
-      date: '2024 Argentina', 
-      size: '4.8 MB', 
+      date: 'Sustituir con tu PDF', 
+      size: 'Local', 
       type: 'Normativa',
-      url: 'https://www.argentina.gob.ar/sites/default/files/anexo-parte-60.pdf'
+      url: '/docs/raac_60.pdf'
     },
     { 
       id: 3, 
@@ -34,7 +34,7 @@ export default function BibliotecaPage() {
       date: 'Versión 2.0', 
       size: '2.1 MB', 
       type: 'Certificación',
-      url: '#' 
+      url: '/docs/master_qtg.pdf' 
     },
     { 
       id: 4, 
@@ -51,19 +51,19 @@ export default function BibliotecaPage() {
       id: 'SN-32', 
       title: 'High Winds during Operation', 
       severity: 'High',
-      url: 'https://robinsonheli.com/wp-content/uploads/2015/11/rhc_sn32.pdf'
+      url: '/docs/sn32.pdf'
     },
     { 
       id: 'SN-44', 
       title: 'Inadvertent IMC Avoidance', 
       severity: 'Critical',
-      url: 'https://robinsonheli.com/wp-content/uploads/2015/11/rhc_sn44.pdf'
+      url: '/docs/sn44.pdf'
     },
     { 
       id: 'SN-11', 
       title: 'Low-G Hazards & Mast Bumping', 
       severity: 'Critical',
-      url: 'https://robinsonheli.com/wp-content/uploads/2015/11/rhc_sn11.pdf'
+      url: '/docs/sn11.pdf'
     },
   ];
 
@@ -73,10 +73,21 @@ export default function BibliotecaPage() {
         <div className="space-y-1">
           <h2 className="text-3xl font-display font-black tracking-tight flex items-center gap-3 uppercase">
             Recursos y Biblioteca Técnica
-            <span className="text-xs bg-white/20 text-white px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-white/10">OFICIAL</span>
+            <span className="text-xs bg-white/20 text-white px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-white/10">PRIVADA</span>
           </h2>
-          <p className="text-white/40 font-bold uppercase text-[10px] tracking-widest">Material técnico para operación y certificación del simulador R44 II.</p>
+          <p className="text-white/40 font-bold uppercase text-[10px] tracking-widest">Material técnico cargado localmente para operación del simulador R44 II.</p>
         </div>
+      </div>
+
+      {/* Instrucciones para el Usuario */}
+      <div className="p-6 rounded-[2rem] bg-brand/10 border border-brand/20 flex items-start gap-4">
+         <ShieldCheck className="w-6 h-6 text-brand-light shrink-0 mt-1" />
+         <div>
+            <h4 className="text-sm font-black text-white uppercase tracking-widest">Instrucción de Carga</h4>
+            <p className="text-xs text-brand-light/70 font-medium leading-relaxed mt-1">
+              Para activar las descargas, por favor coloca tus archivos PDF en la carpeta <code className="text-white bg-black/30 px-2 py-0.5 rounded">public/docs/</code> de este proyecto con los nombres indicados (ej: <span className="italic block mt-1">r44_poh.pdf, raac_60.pdf, sn32.pdf</span>).
+            </p>
+         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
