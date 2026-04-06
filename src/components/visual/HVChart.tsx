@@ -28,21 +28,20 @@ ChartJS.register(
 );
 
 interface Props {
-  weight: number;    // 2000 – 3000 kg
-  altitude: number;  // 0 – 10 000 ft
-  condition: 'oei' | 'autorotation';
+  weight: number;    // 2.000 – 2.500 lb
+  altitude: number;  // 0 – 10.000 ft
 }
 
-/** Calcula los puntos clave de la curva H/V y expone los datos del gráfico. */
-export function computeHVData(weight: number, altitude: number, condition: 'oei' | 'autorotation') {
-  const fw = weight / 2500;                           // 0.8 – 1.2  (normalizado a peso base)
-  const fa = 1 + (altitude / 10000) * 0.4;            // 1.0 – 1.4  (altura degrada performance)
-  const fc = condition === 'autorotation' ? 1.6 : 1.0; // falla total amplía mucho el avoid area
+/** Calcula los puntos clave de la curva H/V para el Robinson R44 II (Monomotor). */
+export function computeHVData(weight: number, altitude: number) {
+  const fw = weight / 2500;                           // normalizado a 2500 lb
+  const fa = 1 + (altitude / 10000) * 0.4;            // altitud degrada margen
+  const fc = 1.6;                                     // Factor base autorrotación monomotor
 
   // ── Zona 1: High-Hover / Low-Speed Avoid Area ─────────────────────────────
   const maxHeight = 400 * fw * fa * fc;               // altura máxima a 0 KIAS
   const minHeight = Math.max(0, 15 / (fw * fa));      // altura mínima (terreno cercano)
-  const kneeSpeed = Math.round(45 * fw * fa * (condition === 'autorotation' ? 1.4 : 1.0));
+  const kneeSpeed = Math.round(45 * fw * fa * 1.4);
 
   const lowerCurve: { x: number; y: number }[] = [];
   const upperCurve: { x: number; y: number }[] = [];
@@ -63,7 +62,7 @@ export function computeHVData(weight: number, altitude: number, condition: 'oei'
   }
 
   // ── Zona 2: High-Speed / Low-Altitude Avoid Area ──────────────────────────
-  const hsStart = 80 - (condition === 'autorotation' ? 15 : 0);
+  const hsStart = 80 - 15;
   const hsEnd   = 160;
 
   const hsLower: { x: number; y: number }[] = [];
@@ -74,31 +73,17 @@ export function computeHVData(weight: number, altitude: number, condition: 'oei'
     hsUpper.push({ x, y: Math.round((x - hsStart) * 1.2 * fw) });
   }
 
-  // ── Corredor Seguro (área verde indicativa) ───────────────────────────────
-  // Franja entre la zona 1 y el inicio de la zona 2 a baja altura
-  const safeStart = kneeSpeed;
-  const safeEnd   = hsStart;
-  const safeLow: { x: number; y: number }[] = [];
-  const safeHigh: { x: number; y: number }[] = [];
-
-  if (safeStart < safeEnd) {
-    for (let x = safeStart; x <= safeEnd; x += 2) {
-      safeLow.push({ x, y: 0 });
-      safeHigh.push({ x, y: 30 }); // franja baja indicativa
-    }
-  }
-
-  // ── Eje Y dinámico (sin clipping) ─────────────────────────────────────────
+  // ── Eje Y dinámico ────────────────────────────────────────────────────────
   const rawMax = Math.max(maxHeight, 200);
   const yAxisMax = Math.max(800, Math.ceil((rawMax * 1.2) / 100) * 100);
 
-  return { lowerCurve, upperCurve, hsLower, hsUpper, safeLow, safeHigh, kneeSpeed, maxHeight, minHeight, yAxisMax };
+  return { lowerCurve, upperCurve, hsLower, hsUpper, kneeSpeed, maxHeight, minHeight, yAxisMax };
 }
 
-export default function HVChart({ weight, altitude, condition }: Props) {
+export default function HVChart({ weight, altitude }: Props) {
   const { lowerCurve, upperCurve, hsLower, hsUpper, kneeSpeed, maxHeight, yAxisMax } = useMemo(
-    () => computeHVData(weight, altitude, condition),
-    [weight, altitude, condition]
+    () => computeHVData(weight, altitude),
+    [weight, altitude]
   );
 
   const chartData = useMemo(() => ({

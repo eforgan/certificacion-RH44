@@ -74,14 +74,13 @@ function DualInput({ label, unit, icon, value, min, max, step, onChange, minLabe
 // Página principal
 // ────────────────────────────────────────────────────────────────────────────
 export default function HVCurvePage() {
-  const [weight, setWeight]       = useState(2700);
+  const [weight, setWeight]       = useState(2200);
   const [altitude, setAltitude]   = useState(2000);
-  const [condition, setCondition] = useState<'oei' | 'autorotation'>('oei');
 
-  // Métricas calculadas en el mismo espacio para el panel de estadísticas
+  // Métricas calculadas para el panel de estadísticas
   const metrics = useMemo(() => {
-    const data = computeHVData(weight, altitude, condition);
-    const hsStart = 80 - (condition === 'autorotation' ? 15 : 0);
+    const data = computeHVData(weight, altitude);
+    const hsStart = 80 - 15;
     const safeWindow = Math.max(0, hsStart - data.kneeSpeed);
     return {
       kneeSpeed: data.kneeSpeed,
@@ -90,7 +89,7 @@ export default function HVCurvePage() {
       safeWindow,
       hsStart,
     };
-  }, [weight, altitude, condition]);
+  }, [weight, altitude]);
 
   return (
     <div className="space-y-8 animate-fade-in pb-20 max-w-7xl mx-auto">
@@ -108,12 +107,12 @@ export default function HVCurvePage() {
           <h2 className="text-3xl font-display font-bold text-white tracking-tight flex items-center gap-3">
             Simulador de Curva H/V
             <span className="text-xs bg-red-500/20 text-red-400 px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-red-500/20">
-              Interactivo
+              R44 II · Monomotor
             </span>
           </h2>
           <p className="text-white/40 font-medium max-w-2xl">
             Análisis de las áreas críticas (Avoid Area) para el Robinson R44 II ajustado
-            por Peso de Despegue, Altitud de Densidad y condición de motor.
+            por Peso de Despegue y Altitud de Densidad (Autorrotación).
           </p>
         </div>
       </div>
@@ -128,19 +127,19 @@ export default function HVCurvePage() {
               <h3 className="text-white font-display font-bold uppercase tracking-widest text-sm">Parámetros</h3>
             </div>
             <DualInput
-              label="Peso"
-              unit="kg"
+              label="Peso Bruto"
+              unit="lb"
               icon={<Weight className="w-3.5 h-3.5" />}
               value={weight}
               min={2000}
-              max={3000}
+              max={2500}
               step={50}
               onChange={setWeight}
               minLabel="Mín 2000"
-              maxLabel="MTOW 3000"
+              maxLabel="MTOW 2500"
             />
             <DualInput
-              label="Altitud"
+              label="Altitud de Densidad"
               unit="ft"
               icon={<Wind className="w-3.5 h-3.5" />}
               value={altitude}
@@ -151,37 +150,21 @@ export default function HVCurvePage() {
               minLabel="MSL 0"
               maxLabel="Max 10 000"
             />
-            <div className="space-y-3">
-              <label className="text-xs font-bold text-white/50 uppercase tracking-widest flex items-center gap-2">
-                <AlertTriangle className="w-3.5 h-3.5" /> Condición Motor
-              </label>
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => setCondition('oei')}
-                  className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest transition-all ${
-                    condition === 'oei'
-                      ? 'bg-amber-500/10 border-amber-500/50 text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.2)]'
-                      : 'bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  Monomotor (OEI)
-                </button>
-                <button
-                  onClick={() => setCondition('autorotation')}
-                  className={`p-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-[0.1em] transition-all leading-relaxed ${
-                    condition === 'autorotation'
-                      ? 'bg-red-500/10 border-red-500/50 text-red-500 shadow-[0_0_20px_rgba(239,68,68,0.2)]'
-                      : 'bg-white/5 border-white/5 text-white/40 hover:bg-white/10 hover:text-white'
-                  }`}
-                >
-                  Falla Total (Auto)
-                </button>
+            
+            <div className="p-4 bg-red-500/5 rounded-2xl border border-red-500/10 space-y-3">
+              <div className="flex items-center gap-2 text-red-400">
+                <AlertTriangle className="w-4 h-4" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Falla de Motor</span>
               </div>
+              <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold leading-relaxed">
+                Único escenario posible en aeronave monomotor: Ingreso inmediato a autorrotación.
+              </p>
             </div>
+
             <div className="p-3 bg-white/5 rounded-xl border border-white/5 flex items-start gap-2">
               <Info className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
               <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold leading-relaxed">
-                Mayor peso y altitud expanden el Avoid Area.
+                El "Avoid Area" se expande con el incremento de peso y altitud.
               </p>
             </div>
           </div>
@@ -192,7 +175,7 @@ export default function HVCurvePage() {
 
           {/* Gráfico */}
           <div className="glass rounded-[2.5rem] p-4 md:p-8 border-white/5 shadow-2xl min-h-[560px] flex flex-col">
-            <HVChart weight={weight} altitude={altitude} condition={condition} />
+            <HVChart weight={weight} altitude={altitude} />
           </div>
 
           {/* Métricas horizontales */}
