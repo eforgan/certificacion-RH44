@@ -33,7 +33,20 @@
       "Bash(vercel:*)",
       "Bash(npx serve:*)",
       "Bash([ -f /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44/out/manifest.json ])",
-      "Bash(sed -i 's/AW109E Power/Robinson R44 II Raven II/g; s/AW109E/R44 II/g' /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44/out/manifest.json)"
+      "Bash(sed -i 's/AW109E Power/Robinson R44 II Raven II/g; s/AW109E/R44 II/g' /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44/out/manifest.json)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 status)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 diff --name-only HEAD)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 status --short)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 ls-files src/lib/data.ts)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 diff src/lib/data.ts)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 log --oneline -3)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 show HEAD:src/lib/data.ts)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 show HEAD:src/components/layout/Sidebar.tsx)",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 show HEAD:src/app/layout.tsx)",
+      "Bash(gh repo:*)",
+      "Bash(npx netlify:*)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('URL:', d.get\\('url',''\\), '\\\\nSSL:', d.get\\('ssl_url',''\\), '\\\\nEstado:', d.get\\('published_deploy',{}\\).get\\('state',''\\), '\\\\nRepo:', d.get\\('build_settings',{}\\).get\\('repo_url',''\\), '\\\\nBranch:', d.get\\('build_settings',{}\\).get\\('branch',''\\), '\\\\nUpdated:', d.get\\('updated_at',''\\)\\)\")",
+      "Bash(git -C /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_R44 log --oneline -1)"
     ]
   }
 }

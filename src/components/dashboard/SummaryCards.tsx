@@ -1,12 +1,12 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { 
   CheckCircle, 
   AlertCircle, 
   FileCheck, 
   Layers,
-  ChevronUp,
   ArrowUpRight,
   TrendingUp
 } from 'lucide-react';
@@ -34,7 +34,8 @@ export default function SummaryCards() {
       icon: CheckCircle, 
       color: 'text-success',
       bg: 'bg-success/10',
-      trend: '+12%'
+      trend: '+12%',
+      href: '/qtg'
     },
     { 
       label: 'Documentos', 
@@ -43,7 +44,8 @@ export default function SummaryCards() {
       icon: FileCheck, 
       color: 'text-brand-light',
       bg: 'bg-brand-light/10',
-      trend: 'ESTABLE'
+      trend: 'ESTABLE',
+      href: '/biblioteca'
     },
     { 
       label: 'Fase de Certificación', 
@@ -52,7 +54,8 @@ export default function SummaryCards() {
       icon: Layers, 
       color: 'text-accent',
       bg: 'bg-accent/10',
-      trend: `${currentFase}/6`
+      trend: `${currentFase}/6`,
+      href: '/fases'
     },
     { 
       label: 'Observaciones', 
@@ -61,14 +64,19 @@ export default function SummaryCards() {
       icon: AlertCircle, 
       color: rejected > 0 ? 'text-danger' : 'text-white/20',
       bg: rejected > 0 ? 'bg-danger/10' : 'bg-white/5',
-      trend: rejected > 0 ? 'CRITICO' : '0'
+      trend: rejected > 0 ? 'CRITICO' : '0',
+      href: '/qtg'
     }
   ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       {cards.map((card, i) => (
-        <div key={i} className="glass p-6 rounded-3xl group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+        <Link 
+          key={i} 
+          href={card.href}
+          className="glass p-6 rounded-3xl group hover:-translate-y-1 transition-all duration-300 relative overflow-hidden block"
+        >
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
           <div className="flex items-start justify-between">
             <div className={`p-4 rounded-2xl ${card.bg} ${card.color} shadow-lg shadow-black/20`}>
@@ -89,7 +97,7 @@ export default function SummaryCards() {
                <ArrowUpRight className="w-3 h-3 opacity-50" />
             </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

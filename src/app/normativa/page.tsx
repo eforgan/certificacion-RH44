@@ -77,9 +77,15 @@ export default function NormativaPage() {
                   </div>
                   <div className="pt-4 border-t border-white/5 flex items-center justify-between">
                      <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest">ANAC Argentina · RAAC 60</span>
-                     <button className="text-[10px] font-bold text-brand-light uppercase tracking-widest flex items-center gap-2 hover:underline">
-                        Copiar referencia
-                        <ChevronRight className="w-3 h-3" />
+                     <button 
+                       onClick={() => {
+                         navigator.clipboard.writeText(`${item.title} - ${item.ref}`);
+                         alert('Referencia copiada al portapapeles');
+                       }}
+                       className="text-[10px] font-bold text-brand-light uppercase tracking-widest flex items-center gap-2 hover:underline focus:outline-none"
+                     >
+                        Explorar Referencia
+                        <ChevronRight className="w-3.5 h-3.5" />
                      </button>
                   </div>
                </div>
