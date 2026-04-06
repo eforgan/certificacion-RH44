@@ -7,7 +7,8 @@ import {
   BookOpen, 
   ExternalLink,
   ShieldCheck,
-  AlertTriangle
+  AlertTriangle,
+  Play // Changed from Youtube to Play for better compatibility
 } from 'lucide-react';
 
 export default function BibliotecaPage() {
@@ -48,22 +49,25 @@ export default function BibliotecaPage() {
 
   const safetyNotices = [
     { 
+      id: 'SN-11', 
+      title: 'Low-G Pushovers (Dangerous)', 
+      severity: 'Critical',
+      url: '/docs/sn11.pdf',
+      videoUrl: 'https://www.youtube.com/watch?v=RJ8SAnwxD6I'
+    },
+    { 
       id: 'SN-32', 
-      title: 'High Winds during Operation', 
-      severity: 'High',
-      url: '/docs/sn32.pdf'
+      title: 'High Winds & Turbulence', 
+      severity: 'Critical',
+      url: '/docs/sn32.pdf',
+      videoUrl: 'https://www.youtube.com/watch?v=qY4Ln8Kbhr4'
     },
     { 
       id: 'SN-44', 
-      title: 'Inadvertent IMC Avoidance', 
-      severity: 'Critical',
-      url: '/docs/sn44.pdf'
-    },
-    { 
-      id: 'SN-11', 
-      title: 'Low-G Hazards & Mast Bumping', 
-      severity: 'Critical',
-      url: '/docs/sn11.pdf'
+      title: 'Carrying Passengers Risks', 
+      severity: 'High',
+      url: '/docs/sn44.pdf',
+      videoUrl: 'https://www.youtube.com/watch?v=CIptsjOjy8Y'
     },
   ];
 
@@ -85,7 +89,7 @@ export default function BibliotecaPage() {
          <div>
             <h4 className="text-sm font-black text-white uppercase tracking-widest">Instrucción de Carga</h4>
             <p className="text-xs text-brand-light/70 font-medium leading-relaxed mt-1">
-              Para activar las descargas, por favor coloca tus archivos PDF en la carpeta <code className="text-white bg-black/30 px-2 py-0.5 rounded">public/docs/</code> de este proyecto con los nombres indicados (ej: <span className="italic block mt-1">r44_poh.pdf, raac_60.pdf, sn32.pdf</span>).
+              Para activar las descargas, por favor coloca tus archivos PDF en la carpeta <code className="text-white bg-black/30 px-2 py-0.5 rounded">public/docs/</code> de este proyecto con los nombres indicados (ej: <span className="italic block mt-1">r44_poh.pdf, raac_60.pdf, sn11.pdf</span>).
             </p>
          </div>
       </div>
@@ -132,25 +136,42 @@ export default function BibliotecaPage() {
             <h3 className="text-xl font-bold uppercase tracking-tight">Robinson Safety Notices (SN)</h3>
           </div>
           <div className="space-y-4">
-            {safetyNotices.map(sn => (
-              <div key={sn.id} className="p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-between group hover:bg-white/[0.08] transition-all">
-                <div className="flex gap-4 items-center">
-                   <div className={`p-3 rounded-xl border ${sn.severity === 'Critical' ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-amber-500/10 border-amber-500/20 text-amber-400'}`}>
-                      <AlertTriangle className="w-5 h-5" />
-                   </div>
-                   <div>
-                      <h4 className="text-sm font-bold text-white/80 group-hover:text-white transition-colors uppercase tracking-[0.05em]">{sn.id}: {sn.title}</h4>
-                      <p className="text-[10px] text-white/30 font-bold uppercase tracking-[0.1em]">Prioridad de Seguridad: {sn.severity}</p>
-                   </div>
+            {safetyNotices.map((sn: any) => (
+              <div key={sn.id} className="p-6 rounded-2xl bg-white/5 border border-white/5 flex flex-col gap-4 group hover:bg-white/[0.08] transition-all">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-4 items-center">
+                     <div className={`p-3 rounded-xl border ${sn.severity === 'Critical' ? 'bg-red-500/10 border-red-500/20 text-red-400' : 'bg-amber-500/10 border-amber-500/20 text-amber-400'}`}>
+                        <AlertTriangle className="w-5 h-5" />
+                     </div>
+                     <div>
+                        <h4 className="text-sm font-bold text-white/80 group-hover:text-white transition-colors uppercase tracking-[0.05em]">{sn.id}: {sn.title}</h4>
+                        <p className="text-[10px] text-white/30 font-bold uppercase tracking-[0.1em]">Prioridad de Seguridad: {sn.severity}</p>
+                     </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {sn.videoUrl && (
+                      <a 
+                        href={sn.videoUrl} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        title="Ver Video Instructivo"
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-red-500/10 text-white/20 hover:text-red-400 border border-white/5 transition-all text-[9px] font-black uppercase tracking-widest"
+                      >
+                        <Play className="w-3.5 h-3.5" />
+                        Video
+                      </a>
+                    )}
+                    <a 
+                      href={sn.url} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      title="Ver PDF"
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/20 hover:text-white transition-all border border-white/5"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
-                <a 
-                  href={sn.url} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/20 hover:text-white transition-all outline-none focus:ring-2 focus:ring-brand-light/20"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </a>
               </div>
             ))}
           </div>
