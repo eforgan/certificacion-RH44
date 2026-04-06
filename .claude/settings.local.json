@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(npm run:*)",
+      "Bash(npx next:*)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "Bash(rsync -a --exclude='node_modules' --exclude='.next' --exclude='out' /mnt/c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_AW109E/src/ ~/CERT_AW109E/src/)",
+      "Bash(./node_modules/.bin/next dev:*)",
+      "Bash(wait)",
+      "Bash(python3 -m http.server 3000)",
+      "Bash(ip addr:*)",
+      "Bash(cp:*)",
+      "Bash(rm:*)",
+      "Bash(rm -rf node_modules)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(pkill -f \"python3 -m http.server\")",
+      "Bash(pkill -f \"next dev\")",
+      "Read(//tmp/**)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(zip -r /tmp/sitio-aw109e.zip out/)",
+      "Bash(tar -czf /tmp/sitio-aw109e.tar.gz out/)",
+      "Bash(npx tsc:*)",
+      "Bash(gh auth:*)"
+    ]
+  }
+}

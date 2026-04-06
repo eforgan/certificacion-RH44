@@ -1,0 +1,491 @@
+<svg viewBox="0 0 1400 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AgustaWestland AW109E Power — Vista de perfil lateral">
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#040e1e"/>
+    <stop offset="55%" stop-color="#071528"/>
+    <stop offset="100%" stop-color="#0a1d38"/>
+  </linearGradient>
+  <linearGradient id="bodyTop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#ccd8e4"/>
+    <stop offset="40%" stop-color="#e8eef6"/>
+    <stop offset="100%" stop-color="#a8b8cc"/>
+  </linearGradient>
+  <linearGradient id="bodyBot" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#98aabc"/>
+    <stop offset="100%" stop-color="#788898"/>
+  </linearGradient>
+  <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#5090cc" stop-opacity="0.88"/>
+    <stop offset="50%" stop-color="#3468a8" stop-opacity="0.92"/>
+    <stop offset="100%" stop-color="#1a3c80" stop-opacity="0.96"/>
+  </linearGradient>
+  <linearGradient id="engine" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#505868"/>
+    <stop offset="100%" stop-color="#282e3c"/>
+  </linearGradient>
+  <linearGradient id="blade" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#242c38"/>
+    <stop offset="30%" stop-color="#3c4454"/>
+    <stop offset="70%" stop-color="#3c4454"/>
+    <stop offset="100%" stop-color="#242c38"/>
+  </linearGradient>
+  <linearGradient id="finGrad" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#b8c8d8"/>
+    <stop offset="100%" stop-color="#d8e4f0"/>
+  </linearGradient>
+  <filter id="shadow" x="-5%" y="-10%" width="115%" height="130%">
+    <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000820" flood-opacity="0.75"/>
+  </filter>
+  <filter id="engineGlow">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <clipPath id="bodyClip">
+    <path d="M 278,233 C 281,252 285,272 290,288 C 330,284 408,279 490,276 C 570,273 650,271 722,273 C 758,273 788,271 818,269 C 842,263 866,257 896,253 C 912,251 922,251 932,253 C 952,257 970,263 990,271 C 1015,280 1042,288 1062,300 C 1087,314 1113,334 1133,354 C 1146,364 1153,372 1157,382 C 1150,394 1132,406 1110,418 C 1087,425 1057,429 1020,431 C 986,433 951,435 912,435 C 852,435 782,433 702,429 C 642,425 577,419 512,415 C 461,411 410,407 366,403 C 331,400 308,398 295,397 C 292,391 290,383 289,374 C 287,356 284,322 281,288 C 280,265 279,248 278,233 Z"/>
+  </clipPath>
+</defs>
+
+<!-- Sky background -->
+<rect width="1400" height="700" fill="url(#sky)"/>
+
+<!-- Faint grid / atmosphere lines -->
+<line x1="0" y1="558" x2="1400" y2="558" stroke="#1577C4" stroke-width="1" stroke-opacity="0.18"/>
+<line x1="0" y1="562" x2="1400" y2="562" stroke="#1577C4" stroke-width="0.5" stroke-opacity="0.1"/>
+
+<!-- Ground reflection glow -->
+<ellipse cx="700" cy="572" rx="540" ry="20" fill="#1577C4" fill-opacity="0.07"/>
+
+<!-- Stars -->
+<g fill="white" opacity="0.35">
+  <circle cx="95"  cy="68"  r="1.4"/>
+  <circle cx="215" cy="38"  r="1.0"/>
+  <circle cx="380" cy="82"  r="1.5"/>
+  <circle cx="520" cy="44"  r="1.0"/>
+  <circle cx="660" cy="72"  r="1.3"/>
+  <circle cx="790" cy="32"  r="1.0"/>
+  <circle cx="940" cy="68"  r="1.4"/>
+  <circle cx="1085" cy="42" r="1.1"/>
+  <circle cx="1220" cy="78" r="1.4"/>
+  <circle cx="1340" cy="52" r="1.0"/>
+  <circle cx="148"  cy="128" r="1.0"/>
+  <circle cx="460"  cy="112" r="1.1"/>
+  <circle cx="720"  cy="118" r="0.9"/>
+  <circle cx="1000" cy="105" r="1.0"/>
+  <circle cx="1300" cy="122" r="1.1"/>
+</g>
+
+<!-- ═══════════════════════════════════════
+     MAIN ROTOR — 4 blades
+     Hub: (912, 255)  |  Radius: 435px
+     Helicopter faces RIGHT (nose to right)
+═══════════════════════════════════════ -->
+
+<!-- Rotor disk aura (faint disc) -->
+<ellipse cx="912" cy="255" rx="435" ry="52" fill="none" stroke="#303848" stroke-width="1.5" opacity="0.35" stroke-dasharray="10,6"/>
+
+<!-- Blade 1 — pointing LEFT (toward tail) -->
+<path d="M 906,249 L 480,258 L 479,270 L 906,261 Z"
+      fill="url(#blade)" stroke="#1a2030" stroke-width="0.8"/>
+<!-- Blade 2 — pointing RIGHT (toward nose) -->
+<path d="M 918,249 L 1344,240 L 1344,252 L 918,261 Z"
+      fill="url(#blade)" stroke="#1a2030" stroke-width="0.8"/>
+<!-- Blade 3 — pointing UP (vertical, clipped above frame) -->
+<path d="M 906,248 L 908,-170 L 918,-170 L 920,248 Z"
+      fill="url(#blade)" stroke="#1a2030" stroke-width="0.8" opacity="0.8"/>
+<!-- Blade 4 — pointing DOWN (toward ground) -->
+<path d="M 906,262 L 908,660 L 918,660 L 920,262 Z"
+      fill="url(#blade)" stroke="#1a2030" stroke-width="0.8" opacity="0.65"/>
+
+<!-- Blade root fairings (where each blade meets the hub) -->
+<ellipse cx="880" cy="255" rx="18" ry="9" fill="#343c4c" transform="rotate(0,880,255)"/>
+<ellipse cx="944" cy="255" rx="18" ry="9" fill="#343c4c" transform="rotate(0,944,255)"/>
+
+<!-- Rotor head (hub assembly) -->
+<ellipse cx="912" cy="255" rx="32" ry="21" fill="url(#engine)" stroke="#4a5468" stroke-width="2"/>
+<!-- Swashplate hint -->
+<ellipse cx="912" cy="258" rx="22" ry="14" fill="#282e3c" stroke="#3a4254" stroke-width="1.5"/>
+<!-- Hub center bolt -->
+<circle cx="912" cy="255" r="9" fill="#1c2230" stroke="#304050" stroke-width="1.5"/>
+<circle cx="912" cy="255" r="4" fill="#1577C4"/>
+
+<!-- Rotor mast -->
+<rect x="904" y="256" width="16" height="32" rx="4" fill="#2c3442" stroke="#3c4456" stroke-width="1"/>
+<rect x="907" y="265" width="10" height="24" rx="3" fill="#242a38"/>
+
+<!-- ═══════════════════════════════════
+     MAIN FUSELAGE — closed outer path
+     Nose: x≈1157, Tail-fin-tip: x≈278
+═══════════════════════════════════ -->
+<path id="fuselage" d="
+  M 278,233
+  C 281,252 285,272 290,288
+  C 330,284 408,279 490,276
+  C 570,273 650,271 722,273
+  C 758,273 788,271 818,269
+  C 842,263 866,257 896,253
+  C 912,251 922,251 932,253
+  C 952,257 970,263 990,271
+  C 1015,280 1042,288 1062,300
+  C 1087,314 1113,334 1133,354
+  C 1146,364 1153,372 1157,382
+  C 1150,394 1132,406 1110,418
+  C 1087,425 1057,429 1020,431
+  C 986,433 951,435 912,435
+  C 852,435 782,433 702,429
+  C 642,425 577,419 512,415
+  C 461,411 410,407 366,403
+  C 331,400 308,398 295,397
+  C 292,391 290,383 289,374
+  C 287,356 284,322 281,288
+  C 280,265 279,248 278,233
+  Z"
+  fill="url(#bodyTop)" filter="url(#shadow)" stroke="#9aaec2" stroke-width="1.5"/>
+
+<!-- Belly shading (lower undersurface) -->
+<path d="
+  M 295,397
+  C 308,400 335,405 368,410
+  C 410,415 462,420 514,422
+  C 578,426 644,428 702,430
+  C 762,432 822,434 880,434
+  C 920,434 958,432 1000,428
+  C 1038,424 1070,418 1100,412
+  C 1128,406 1148,400 1157,383
+  C 1158,383 1158,384 1157,385
+  C 1152,398 1140,410 1120,420
+  C 1098,428 1065,434 1024,438
+  C 980,441 930,442 876,442
+  C 816,442 748,440 678,436
+  C 610,432 538,426 468,420
+  C 408,414 358,408 322,404
+  C 302,401 289,400 283,400
+  C 282,396 281,392 280,388
+  L 283,398
+  C 286,400 290,399 295,397 Z"
+  fill="url(#bodyBot)" opacity="0.55"/>
+
+<!-- ═══════════════════════════════
+     LIVERY STRIPE (corporate blue)
+     Running along the fuselage mid-line
+═══════════════════════════════ -->
+<!-- Primary blue stripe -->
+<path d="M 308,362 L 1060,356 L 1060,374 L 308,378 Z"
+      fill="#1577C4" opacity="0.9"/>
+<!-- Secondary darker stripe below -->
+<path d="M 316,374 L 1048,370 L 1048,382 L 316,384 Z"
+      fill="#0a3878" opacity="0.65"/>
+<!-- Stripe fade at nose -->
+<path d="M 1060,356 C 1080,352 1110,350 1130,354 L 1130,374 C 1110,370 1082,370 1062,374 Z"
+      fill="#1577C4" opacity="0.45"/>
+
+<!-- ═══════════════════════════════
+     WINDSHIELD (large swept glass)
+     AW109E: two large wrap-around panels
+═══════════════════════════════ -->
+<path d="
+  M 1055,298
+  C 1080,310 1108,330 1130,354
+  C 1143,364 1152,374 1157,382
+  C 1150,394 1132,406 1110,418
+  L 1085,418
+  C 1062,410 1042,398 1028,382
+  C 1016,366 1012,348 1020,330
+  C 1028,312 1040,302 1055,298
+  Z"
+  fill="url(#glass)" stroke="#5090c0" stroke-width="1.5"/>
+
+<!-- Windshield center post (divides L and R panels) -->
+<line x1="1092" y1="300" x2="1098" y2="418"
+      stroke="#6898b8" stroke-width="3" opacity="0.6"/>
+
+<!-- Windshield glare highlight -->
+<path d="M 1064,304 C 1082,318 1100,336 1108,358 C 1096,344 1074,320 1062,308 Z"
+      fill="white" opacity="0.22"/>
+<path d="M 1042,332 C 1048,344 1050,358 1046,368 C 1042,356 1040,342 1042,332 Z"
+      fill="white" opacity="0.14"/>
+
+<!-- Chin area (below windshield, nose underside) -->
+<path d="
+  M 1028,382
+  C 1040,390 1058,400 1080,412
+  L 1112,420
+  L 1120,432
+  C 1095,436 1062,438 1028,436
+  C 1006,434 988,428 978,420
+  C 968,410 968,396 978,384
+  C 994,370 1014,374 1028,382 Z"
+  fill="#b0c0d0" opacity="0.7"/>
+
+<!-- ═══════════════════════════════
+     CABIN DOOR WINDOWS (3)
+     AW109E has large panoramic windows
+═══════════════════════════════ -->
+<!-- Door window 1 (forward, pilot/front pax door) -->
+<rect x="896" y="312" width="74" height="54" rx="12"
+      fill="url(#glass)" stroke="#5090c0" stroke-width="1.5"/>
+<rect x="904" y="319" width="32" height="23" rx="5" fill="white" opacity="0.16"/>
+
+<!-- Door window 2 (center cabin) -->
+<rect x="794" y="315" width="70" height="52" rx="11"
+      fill="url(#glass)" stroke="#5090c0" stroke-width="1.5"/>
+<rect x="801" y="322" width="28" height="20" rx="4" fill="white" opacity="0.14"/>
+
+<!-- Door window 3 (rear cabin) -->
+<rect x="694" y="318" width="66" height="50" rx="10"
+      fill="url(#glass)" stroke="#5090c0" stroke-width="1.5"/>
+<rect x="700" y="325" width="26" height="19" rx="4" fill="white" opacity="0.13"/>
+
+<!-- Window frame highlights -->
+<rect x="896" y="312" width="74" height="8" rx="12" fill="white" opacity="0.15"/>
+<rect x="794" y="315" width="70" height="7" rx="11" fill="white" opacity="0.13"/>
+<rect x="694" y="318" width="66" height="7" rx="10" fill="white" opacity="0.12"/>
+
+<!-- ═══════════════════════════════
+     ENGINE NACELLES (twin PW206C)
+     Mounted on top of fuselage, aft of main gearbox
+     Engine 1 (fwd): x=860-950, y=258-292
+     Engine 2 (aft): x=770-860, y=262-296
+═══════════════════════════════ -->
+<!-- Engine 1 body (forward/starboard) -->
+<path d="M 862,290 C 862,276 870,267 884,263 L 944,263 C 955,263 962,270 964,280 L 962,292 C 940,293 900,293 862,292 Z"
+      fill="url(#engine)" stroke="#5a6478" stroke-width="1.5"/>
+<!-- Engine 1 air intake -->
+<ellipse cx="867" cy="277" rx="11" ry="17" fill="#14181e" stroke="#3a4254" stroke-width="1.5"/>
+<ellipse cx="867" cy="277" rx="7" ry="11" fill="#0a0e14"/>
+<!-- Engine 1 exhaust nozzle -->
+<rect x="958" y="270" width="20" height="16" rx="4" fill="#14181e" stroke="#384050" stroke-width="1"/>
+<!-- Engine 1 hot exhaust glow -->
+<rect x="961" y="273" width="10" height="10" rx="2" fill="#d06030" opacity="0.7"/>
+<path d="M 978,278 C 992,272 1010,268 1022,271" stroke="#e07030" stroke-width="2.5" fill="none" opacity="0.35"/>
+
+<!-- Engine 2 body (aft/port) -->
+<path d="M 772,294 C 772,280 780,271 794,267 L 854,267 C 865,267 872,274 874,284 L 872,296 C 850,297 810,297 772,296 Z"
+      fill="url(#engine)" stroke="#5a6478" stroke-width="1.5"/>
+<!-- Engine 2 air intake -->
+<ellipse cx="777" cy="281" rx="11" ry="17" fill="#14181e" stroke="#3a4254" stroke-width="1.5"/>
+<ellipse cx="777" cy="281" rx="7" ry="11" fill="#0a0e14"/>
+<!-- Engine 2 exhaust nozzle -->
+<rect x="868" y="274" width="20" height="16" rx="4" fill="#14181e" stroke="#384050" stroke-width="1"/>
+<!-- Engine 2 hot exhaust glow -->
+<rect x="871" y="277" width="10" height="10" rx="2" fill="#d06030" opacity="0.65"/>
+<path d="M 888,282 C 902,276 918,272 930,275" stroke="#e07030" stroke-width="2" fill="none" opacity="0.3"/>
+
+<!-- Main gearbox fairing (between engines, at mast base) -->
+<path d="M 892,290 C 898,278 904,268 912,262 L 920,262 C 928,268 934,278 938,290 Z"
+      fill="#2c3442" stroke="#3c4456" stroke-width="1.2"/>
+
+<!-- Engine cowl cooling scoops -->
+<path d="M 896,264 L 896,270 L 906,270 L 906,264" fill="#1c2230" stroke="#3a4254" stroke-width="0.8" opacity="0.7"/>
+<path d="M 804,268 L 804,274 L 812,274 L 812,268" fill="#1c2230" stroke="#3a4254" stroke-width="0.8" opacity="0.7"/>
+
+<!-- ═══════════════════════════════
+     SPONSONS (retractable gear housings)
+     Visible as bulges on lower fuselage
+═══════════════════════════════ -->
+<path d="M 635,430 C 660,440 710,448 768,450 C 826,452 876,448 908,442 C 876,434 826,432 768,432 C 716,432 668,431 635,430 Z"
+      fill="#8898ac" stroke="#6878a0" stroke-width="1" opacity="0.8"/>
+<!-- Sponson edge highlight -->
+<path d="M 655,432 C 690,436 740,440 785,441 C 830,440 870,437 896,433"
+      stroke="#a8b8cc" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+<!-- ═══════════════════════════════
+     TAIL VERTICAL FIN
+     Fin leading edge from tail boom, rises to fin tip
+═══════════════════════════════ -->
+<path d="
+  M 278,233
+  C 278,248 280,265 281,288
+  L 294,397
+  C 298,400 306,402 318,404
+  L 330,340
+  C 332,324 334,300 334,278
+  C 334,258 330,240 322,230
+  C 316,222 308,218 300,220
+  C 290,222 282,226 278,233 Z"
+  fill="url(#finGrad)" stroke="#8aa0b8" stroke-width="1.5"/>
+
+<!-- Tail fin livery stripe -->
+<path d="M 297,278 L 318,273 L 322,298 L 299,304 Z"
+      fill="#1577C4" opacity="0.8"/>
+<path d="M 299,302 L 321,296 L 323,310 L 300,315 Z"
+      fill="#0a3878" opacity="0.6"/>
+
+<!-- ═══════════════════════════════
+     HORIZONTAL STABILIZER
+     Mid-fin attachment, extends forward (right)
+═══════════════════════════════ -->
+<!-- Upper surface -->
+<path d="
+  M 308,347
+  C 325,344 368,340 418,342
+  C 455,344 476,350 473,360
+  C 450,362 406,360 365,358
+  C 334,356 316,352 308,347 Z"
+  fill="url(#bodyTop)" stroke="#8aa0b8" stroke-width="1.5"/>
+<!-- Lower surface / thickness -->
+<path d="
+  M 312,352
+  C 328,358 364,362 406,364
+  C 446,364 468,362 473,360
+  C 454,364 412,366 368,364
+  C 336,362 318,358 312,352 Z"
+  fill="#b0c0d0" opacity="0.6"/>
+<!-- Stab tip detail -->
+<ellipse cx="476" cy="355" rx="6" ry="10" fill="#8aa0b8"/>
+
+<!-- ═══════════════════════════════
+     TAIL ROTOR (2-blade, left side of fin)
+     Disk shown at: cx=286, cy=258, r=78
+═══════════════════════════════ -->
+<!-- Rotor disk outline -->
+<circle cx="286" cy="258" r="78" fill="none" stroke="#303848" stroke-width="1.5" stroke-dasharray="7,5" opacity="0.55"/>
+<!-- 2 blades -->
+<line x1="210" y1="258" x2="362" y2="258" stroke="#3c4454" stroke-width="16" stroke-linecap="round"/>
+<line x1="286" y1="180" x2="286" y2="336" stroke="#3c4454" stroke-width="16" stroke-linecap="round"/>
+<!-- Hub -->
+<circle cx="286" cy="258" r="16" fill="#282e3c" stroke="#404858" stroke-width="2"/>
+<circle cx="286" cy="258" r="7" fill="#1577C4"/>
+<circle cx="286" cy="258" r="3" fill="#0a1a40"/>
+
+<!-- Tail rotor guard -->
+<path d="M 278,188 C 248,215 240,240 244,265 C 248,288 260,308 278,322"
+      fill="none" stroke="#505868" stroke-width="3" opacity="0.5"/>
+
+<!-- ═══════════════════════════════
+     LANDING GEAR (deployed)
+     Main gear from sponsons (tricycle)
+═══════════════════════════════ -->
+<!-- Main gear starboard strut -->
+<line x1="756" y1="445" x2="745" y2="516"
+      stroke="#484e5c" stroke-width="7" stroke-linecap="round"/>
+<!-- Main gear axle + wheel -->
+<line x1="732" y1="516" x2="764" y2="516"
+      stroke="#484e5c" stroke-width="5" stroke-linecap="round"/>
+<ellipse cx="726" cy="519" rx="22" ry="14"
+         fill="#1e2430" stroke="#3c4454" stroke-width="2"/>
+<ellipse cx="726" cy="519" rx="12" ry="8"
+         fill="#2a3040" stroke="#404858" stroke-width="1"/>
+<ellipse cx="770" cy="519" rx="22" ry="14"
+         fill="#1e2430" stroke="#3c4454" stroke-width="2"/>
+<!-- Gear door / sponson -->
+<path d="M 710,447 L 790,443 L 792,455 L 710,458 Z"
+      fill="#8898ac" opacity="0.7"/>
+
+<!-- Nose gear strut -->
+<line x1="1038" y1="432" x2="1028" y2="504"
+      stroke="#484e5c" stroke-width="6" stroke-linecap="round"/>
+<!-- Nose gear fork -->
+<line x1="1018" y1="504" x2="1042" y2="504"
+      stroke="#484e5c" stroke-width="4" stroke-linecap="round"/>
+<ellipse cx="1013" cy="507" rx="18" ry="11"
+         fill="#1e2430" stroke="#3c4454" stroke-width="2"/>
+<ellipse cx="1013" cy="507" rx="10" ry="6"
+         fill="#2a3040" stroke="#404858" stroke-width="1"/>
+<ellipse cx="1047" cy="507" rx="18" ry="11"
+         fill="#1e2430" stroke="#3c4454" stroke-width="2"/>
+
+<!-- ═══════════════════════════════
+     SMALL DETAILS
+═══════════════════════════════ -->
+<!-- Pitot tube (nose probe) -->
+<line x1="1157" y1="383" x2="1205" y2="365"
+      stroke="#7a90a8" stroke-width="3" stroke-linecap="round"/>
+<circle cx="1206" cy="365" r="3" fill="#9aaec2"/>
+
+<!-- Step/skid foothold on sponson -->
+<line x1="716" y1="438" x2="764" y2="436"
+      stroke="#505868" stroke-width="4" stroke-linecap="round"/>
+
+<!-- Navigation light (tail: red on left side) -->
+<circle cx="327" cy="225" r="5" fill="#e03030" opacity="0.9"/>
+<circle cx="327" cy="225" r="8" fill="#e03030" opacity="0.25"/>
+
+<!-- Navigation light (nose: green on right) -->
+<circle cx="1165" cy="420" r="4" fill="#22c55e" opacity="0.9"/>
+<circle cx="1165" cy="420" r="7" fill="#22c55e" opacity="0.2"/>
+
+<!-- Anti-collision beacon (top of fuselage) -->
+<circle cx="668" cy="270" r="5" fill="#e07030" opacity="0.85"/>
+<circle cx="668" cy="270" r="9" fill="#e07030" opacity="0.22"/>
+
+<!-- AFCS / antenna on fuselage top -->
+<line x1="585" y1="322" x2="585" y2="292"
+      stroke="#8898b8" stroke-width="2" stroke-linecap="round"/>
+<circle cx="585" cy="290" r="3" fill="#6888a8"/>
+
+<!-- ═══════════════════════════════
+     DIMENSION / LABEL ANNOTATIONS
+═══════════════════════════════ -->
+<g font-family="Inter, 'Segoe UI', sans-serif" font-size="11">
+
+  <!-- Main rotor label -->
+  <line x1="730" y1="257" x2="640" y2="198" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="730" cy="257" r="3" fill="#1577C4" opacity="0.7"/>
+  <rect x="548" y="176" width="180" height="36" rx="6" fill="#071528" fill-opacity="0.85" stroke="#1577C4" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="638" y="191" fill="#e8f4ff" text-anchor="middle" font-weight="600">Rotor principal 4 palas</text>
+  <text x="638" y="206" fill="#7daed4" text-anchor="middle">Articulado · Ø 11,00 m</text>
+
+  <!-- Engine label -->
+  <line x1="858" y1="272" x2="810" y2="212" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="858" cy="272" r="3" fill="#1577C4" opacity="0.7"/>
+  <rect x="718" y="190" width="184" height="36" rx="6" fill="#071528" fill-opacity="0.85" stroke="#1577C4" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="810" y="205" fill="#e8f4ff" text-anchor="middle" font-weight="600">2× Pratt &amp; Whitney PW206C</text>
+  <text x="810" y="220" fill="#7daed4" text-anchor="middle">563 SHP (cont.) · TOT 780°C</text>
+
+  <!-- Cockpit label -->
+  <line x1="1046" y1="335" x2="1108" y2="260" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="1046" cy="335" r="3" fill="#1577C4" opacity="0.7"/>
+  <rect x="1020" y="238" width="162" height="36" rx="6" fill="#071528" fill-opacity="0.85" stroke="#1577C4" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="1101" y="253" fill="#e8f4ff" text-anchor="middle" font-weight="600">Carlinga EFIS / AFCS</text>
+  <text x="1101" y="268" fill="#7daed4" text-anchor="middle">3× MFD 6"×8" LCD</text>
+
+  <!-- Tail rotor label -->
+  <line x1="286" y1="200" x2="262" y2="155" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="286" cy="200" r="3" fill="#1577C4" opacity="0.7"/>
+  <rect x="164" y="133" width="194" height="36" rx="6" fill="#071528" fill-opacity="0.85" stroke="#1577C4" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="261" y="148" fill="#e8f4ff" text-anchor="middle" font-weight="600">Rotor de cola 2 palas</text>
+  <text x="261" y="163" fill="#7daed4" text-anchor="middle">Ø 1,94 m · lado izquierdo</text>
+
+  <!-- Horiz. stab label -->
+  <line x1="420" y1="356" x2="406" y2="410" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="420" cy="356" r="3" fill="#1577C4" opacity="0.7"/>
+  <rect x="318" y="410" width="174" height="28" rx="6" fill="#071528" fill-opacity="0.85" stroke="#1577C4" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="405" y="428" fill="#7daed4" text-anchor="middle">Estabilizador horizontal</text>
+
+  <!-- Landing gear label -->
+  <line x1="726" y1="508" x2="790" y2="542" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <circle cx="726" cy="508" r="3" fill="#1577C4" opacity="0.7"/>
+  <rect x="790" y="526" width="162" height="28" rx="6" fill="#071528" fill-opacity="0.85" stroke="#1577C4" stroke-width="0.8" stroke-opacity="0.5"/>
+  <text x="871" y="544" fill="#7daed4" text-anchor="middle">Tren retráctil triciclo</text>
+
+  <!-- Sponson label -->
+  <line x1="770" y1="448" x2="770" y2="476" stroke="#1577C4" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+  <rect x="692" y="476" width="156" height="22" rx="5" fill="#071528" fill-opacity="0.8" stroke="#1577C4" stroke-width="0.6" stroke-opacity="0.4"/>
+  <text x="770" y="491" fill="#7daed4" text-anchor="middle" font-size="10">Sponsones tren principal</text>
+
+</g>
+
+<!-- ═══════════════════════════════
+     TITLE PLATE
+═══════════════════════════════ -->
+<rect x="360" y="592" width="680" height="72" rx="10"
+      fill="#071528" fill-opacity="0.9" stroke="#1577C4" stroke-width="1" stroke-opacity="0.4"/>
+
+<text x="700" y="617"
+      font-family="'Barlow Condensed', 'Inter', sans-serif"
+      font-size="22" font-weight="800" fill="#e8f4ff" text-anchor="middle" letter-spacing="3">
+  AGUSTAWESTLAND AW109E POWER
+</text>
+<line x1="400" y1="624" x2="1000" y2="624" stroke="#1577C4" stroke-width="0.8" opacity="0.5"/>
+<text x="700" y="644"
+      font-family="Inter, sans-serif"
+      font-size="11" fill="#7daed4" text-anchor="middle" letter-spacing="1">
+  MTOW 3.000 kg  ·  2× PW206C 563 SHP  ·  Vne 168 kt  ·  Techo 6.096 m  ·  Nr: 100–107%
+</text>
+<text x="700" y="659"
+      font-family="Inter, sans-serif"
+      font-size="10" fill="#4d87b8" text-anchor="middle" letter-spacing="0.5">
+  Rotor principal: 4 palas · Ø 11,00 m  ·  Rotor de cola: 2 palas · Ø 1,94 m  ·  Combustible: 680 L Jet A-1
+</text>
+
+</svg>

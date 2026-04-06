@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls:*)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "WebFetch(domain:www.flickr.com)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:www.easa.europa.eu)",
+      "Read(//c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_AW109E/$APPDATA/netlify/**)",
+      "Read(//c/Users/SERVER-MADERO/Desktop/Output/CERTIFICACION_SIMULADOR_AW109E/$HOME/.netlify/**)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(''''token present:'''', bool\\(d.get\\(''''users'''',{}\\).get\\(list\\(d.get\\(''''users'''',{}\\).keys\\(\\)\\)[0],{}\\).get\\(''''auth'''',{}\\).get\\(''''token''''\\)\\)\\)\")"
+    ]
+  }
+}
