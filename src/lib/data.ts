@@ -64,138 +64,160 @@ export const R44_SPECS = {
 };
 
 export const QTG_DATA: QTGTest[] = [
-  // PERFORMANCE
+  // AREA 1 — PERFORMANCE Y VUELO ESTACIONARIO
   { id:'QTG-01-001', cat:'performance', critical:false,
-    name:'Vuelo Estacionario IGE', ref:'POH §5 / RAAC60 App.A',
-    param:'MAP en estacionario IGE (≈5 ft AGL)', unit:'inHg',
-    ref_val:'Según carta IGE', tol:'± 2 inHg',
+    name:'Vuelo Estacionario IGE', ref:'POH §5 / RAAC60',
+    param:'MAP en estacionario IGE (~5 ft AGL)', unit:'inHg',
+    ref_val:'Según carta IGE (POH §5)', tol:'± 2 inHg',
     cond:'ISA, MSL, 0 kt, 2.200 lb', status:'pending',
-    procedure:'Establecer estacionario IGE a ~5 ft AGL en condiciones ISA MSL con peso de 2.200 lb. Tomar lectura de la Presión de Múltiple (MAP) y comparar con tabla IGE POH.',
+    procedure:'Elevar a estacionario IGE (~5 ft) y estabilizar 30 seg. Medir MAP requerida.',
     rfm_params:[{label:'Peso', value:'2.200 lb'}, {label:'Viento', value:'0 kt'}, {label:'Tolerancia', value:'± 2 inHg'}]
   },
   { id:'QTG-01-002', cat:'performance', critical:false,
     name:'Vuelo Estacionario OGE', ref:'POH §5',
     param:'MAP en estacionario OGE (≥20 ft AGL)', unit:'inHg',
-    ref_val:'Según carta OGE', tol:'± 2 inHg',
+    ref_val:'Según carta OGE (POH §5)', tol:'± 2 inHg',
     cond:'ISA, MSL, 0 kt, 2.200 lb', status:'pending',
-    procedure:'Establecer vuelo estacionario OGE (Fuera del efecto suelo) a ≥20 ft AGL. Registrar demanda MAP comprobando similitud con la curva teórica OGE.',
+    procedure:'Elevar a ≥ 20 ft AGL, estabilizar 30 seg. Medir MAP requerida.',
     rfm_params:[{label:'Altura mínima', value:'≥20 ft AGL'}, {label:'Tolerancia', value:'± 2 inHg'}]
   },
   { id:'QTG-01-004', cat:'performance', critical:false,
     name:'Mejor Tasa de Ascenso (Vy)', ref:'POH §5',
     param:'Tasa de ascenso a 55 KIAS', unit:'FPM',
     ref_val:'~1.000 FPM', tol:'± 100 FPM',
-    cond:'MCP, ISA, MSL, 2.200 lb', status:'pending',
-    procedure:'Acelerar en ascenso estabilizado a Vy (55 KIAS). Aplicar potencia MCP (205 BHP). Constatar que la tasa vertical alcance aproximadamente 1.000 FPM.',
-    rfm_params:[{label:'Velocidad (Vy)', value:'55 KIAS'}, {label:'Potencia', value:'MCP'}, {label:'Valor Referencia', value:'~1.000 FPM'}]
+    cond:'MCP (205 BHP), ISA, MSL, 2.200 lb', status:'pending',
+    procedure:'Acelerar a 55 KIAS con potencia MCP. Medir tasa vertical (FPM).',
+    rfm_params:[{label:'Velocidad (Vy)', value:'55 KIAS'}, {label:'Potencia', value:'MCP'}, {label:'Referencia', value:'~1.000 FPM'}]
   },
   { id:'QTG-01-005', cat:'performance', critical:false,
     name:'Velocidad Nunca Exceder (Vne)', ref:'POH §2',
     param:'Activación advertencia Vne', unit:'KIAS',
     ref_val:'130 KIAS (≤2.200 lb)', tol:'± 2 KIAS',
-    cond:'Peso <2.200 lb, MSL', status:'pending',
-    procedure:'Volar gradualmente hasta Vne de 130 KIAS. El simulador debe representar el límite y los consecuentes efectos aerodinámicos (ej: vibraciones).',
+    cond:'Peso ≤ 2.200 lb, MSL', status:'pending',
+    procedure:'Acelerar gradualmente hasta 130 KIAS. Verificar activación de advertencias.',
     rfm_params:[{label:'Límite Vne', value:'130 KIAS'}]
   },
-  { id:'QTG-01-007', cat:'performance', critical:false,
-    name:'Diagrama H/V', ref:'POH §5',
-    param:'Coincidencia zonas riesgo H/V', unit:'ft AGL / KIAS',
-    ref_val:'Perfil H/V (2.500 lb, MSL)', tol:'± 50 ft / ± 5 KIAS',
-    cond:'MTOW 2.500 lb, MSL', status:'pending',
-    procedure:'Verificar límites de la Avoid Region H/V del R44 coincidiendo los márgenes de Altura y Velocidad donde es inviable la autorrotación.',
-    rfm_params:[{label:'MTOW', value:'2.500 lb'}, {label:'Tolerancia Alt', value:'± 50 ft'}, {label:'Tolerancia Vel', value:'± 5 KIAS'}]
-  },
-  // HANDLING
+
+  // AREA 2 — MANIOBRABILIDAD EN VUELO
   { id:'QTG-02-001', cat:'handling', critical:false,
     name:'Viraje Coordinado 30°', ref:'POH §4',
-    param:'Alt, vel, bola', unit:'ft / KIAS',
+    param:'Altitud / Vel / Bola', unit:'ft / KIAS',
     ref_val:'Cero desvío', tol:'± 100 ft / ± 5 KIAS / ½ bola',
     cond:'100 KIAS, 2.200 lb, ISA', status:'pending',
-    procedure:'Virar con 30° de alabeo coordinado durante 360 grados. Los márgenes de error altimétricos/velocidad no deben superar restricciones RAAC.',
+    procedure:'Viraje coordinado con 30° de alabeo durante 360°. Medir variaciones.',
     rfm_params:[{label:'Velocidad', value:'100 KIAS'}, {label:'Alabeo', value:'30°'}]
   },
   { id:'QTG-02-004', cat:'handling', critical:false,
     name:'Aproximación y Aterrizaje Normal', ref:'POH §4',
     param:'Tasa descenso <30 KIAS', unit:'FPM',
     ref_val:'< 300 FPM', tol:'< 300 FPM',
-    cond:'ISA, 0 kt, 60 KIAS → estacionario', status:'pending',
-    procedure:'Establecer descenso normal. Al pasar la barrera técnica de 30 KIAS, no exceder de 300 FPM para prevenir anillos de vórtice (VRS).',
-    rfm_params:[{label:'Transición final', value:'30 KIAS'}, {label:'VRS límite', value:'<300 FPM'}]
+    cond:'ISA, 0 kt, 60 KIAS → Estacionario', status:'pending',
+    procedure:'Reducir velocidad a 30 KIAS. Verificar que la tasa de descenso sea < 300 FPM (Evitar VRS).',
+    rfm_params:[{label:'VRS límite', value:'<300 FPM'}, {label:'Ref. Vel', value:'< 30 KIAS'}]
   },
-  { id:'QTG-02-007', cat:'handling', critical:false,
-    name:'Peso y Balance — Límites CG', ref:'POH §6',
-    param:'Restricciones arm (in)', unit:'in',
-    ref_val:'93.0–98.0 in (2.500 lb)', tol:'CG Envelope',
-    cond:'Cálculo W&B', status:'pending',
-    procedure:'Ingresar valores fronterizos en FMS/Computadora (o validar aerodinámica) en límites delantero y trasero. Verificar advertencias fuera del CG envelope.',
-    rfm_params:[{label:'Lím. Delantero Max', value:'93.0 in. (MTOW)'}, {label:'Lím. Trasero Min', value:'102.5 in. (Min Weight)'}]
+  { id:'QTG-02-006', cat:'handling', critical:false,
+    name:'Diagrama Altura-Velocidad (H/V)', ref:'POH §5',
+    param:'Coincidencia zonas riesgo H/V', unit:'ft AGL / KIAS',
+    ref_val:'Perfil H/V (2.500 lb, MSL)', tol:'± 50 ft / ± 5 KIAS',
+    cond:'MTOW 2.500 lb, MSL', status:'pending',
+    procedure:'Verificar límites de la Avoid Region H/V del R44 II según POH Sección 5.',
+    rfm_params:[{label:'MTOW', value:'2.500 lb'}, {label:'Tolerancia Alt', value:'± 50 ft'}]
   },
-  // SYSTEMS
+
+  // AREA 3 — SISTEMAS DE AERONAVE
   { id:'QTG-03-002', cat:'systems', critical:false,
-    name:'Sistema Hidráulico', ref:'POH §7',
+    name:'Sistema Hidráulico — Operación', ref:'POH §7',
     param:'Presión sys en crucero', unit:'psi',
     ref_val:'450–500 psi', tol:'± 20 psi',
     cond:'Crucero normal', status:'pending',
-    procedure:'Monitorear instrumentación en vuelo normal de la presión hidráulica auxiliar operando en la caja del MGB. Indice esperado: 450-500psi.',
+    procedure:'Monitorear presión hidráulica en vuelo normal. Operar interruptor HYD ON/OFF.',
     rfm_params:[{label:'Presión POH', value:'450 - 500 psi'}]
   },
   { id:'QTG-03-006', cat:'systems', critical:true,
     name:'⚠ Alarma LOW RPM', ref:'POH §2 / SFAR 73',
-    param:'Bocina/Luz activa', unit:'% RPM',
+    param:'Activación bocina', unit:'% RPM',
     ref_val:'97% RPM', tol:'± 1% RPM',
     cond:'Descenso progresivo RPM', status:'pending',
-    procedure:'CRÍTICA: Someter rotor principal a pérdida de RPM gradual con el colectivo. Constatar de inmediato la bocina sónica LOW RPM al cruce por el límite del 97%.',
-    rfm_params:[{label:'Límite inferior normal', value:'101%'}, {label:'Sensor de Bocina', value:'97% (388 RPM)'}]
+    procedure:'CRÍTICA: Reducir RPM rotor hasta activación de bocina al cruzar el 97%.',
+    rfm_params:[{label:'Límite activación', value:'97% (388 RPM)'}]
+  },
+  { id:'QTG-03-007', cat:'systems', critical:false,
+    name:'Alarma High RPM (Warble)', ref:'POH §2',
+    param:'Activación tono warble', unit:'% RPM',
+    ref_val:'108% RPM', tol:'± 1% RPM',
+    cond:'Incremento RPM en Autorrotación', status:'pending',
+    procedure:'Incrementar RPM hasta proximidad de 108%. Verificar tono warble.',
+    rfm_params:[{label:'Límite superior', value:'108% (432 RPM)'}]
   },
   { id:'QTG-03-008', cat:'systems', critical:false,
-    name:'Clutch Actuación', ref:'POH §7',
-    param:'Luz apagada en enganche completo', unit:'cualitativo',
-    ref_val:'Se apaga pre-operacional', tol:'< 80% RPM rotor',
+    name:'Sistema Embrague (CLUTCH)', ref:'POH §7',
+    param:'Luz apagada en enganche', unit:'cualitativo',
+    ref_val:'Luz OFF ≥ 80% RPM', tol:'< 80% RPM',
     cond:'Secuencia post-arranque', status:'pending',
-    procedure:'Durante la tracción de las correas por el actuador de clutch electromecánico post start, medir que la luz de advertencia claudique luego del empate y tesón de giro total del mastil.',
+    procedure:'Verificar que la luz CLUTCH se apague antes de alcanzar RPM operacional.',
     rfm_params:[{label:'Apagado luz', value:'> 80% RPM'}]
   },
-  // EMERGENCIES
+
+  // AREA 4 — PROCEDIMIENTOS DE EMERGENCIA
   { id:'QTG-04-001', cat:'emergency', critical:true,
-    name:'⚠ Autorrotación — Glide', ref:'POH §3',
-    param:'Descenso estabilizado 90 KIAS', unit:'FPM',
+    name:'⚠ Autorrotación — Máximo Alcance', ref:'POH §3',
+    param:'Descenso a 90 KIAS', unit:'FPM',
     ref_val:'~1.900 FPM', tol:'± 200 FPM',
-    cond:'2.200 lb, ISA', status:'pending',
-    procedure:'Cortar acelerador/throttle roll-off absoluto y picar a 90 KIAS para Glide alcance máximo. Cuantificar el régimen de descenso vertical nominal.',
-    rfm_params:[{label:'Planéo MAX Alcance', value:'90 KIAS'}, {label:'Sink teórico', value:'1.900 FPM'}]
+    cond:'2.200 lb, ISA, 90 KIAS', status:'pending',
+    procedure:'Power-off glide a 90 KIAS. Medir tasa de descenso vertical (Glide ratio 4.7:1).',
+    rfm_params:[{label:'Velocidad Glide', value:'90 KIAS'}, {label:'Sink teórico', value:'~1.900 FPM'}]
+  },
+  { id:'QTG-04-002', cat:'emergency', critical:false,
+    name:'Autorrotación — Mínima Tasa Descenso', ref:'POH §3',
+    param:'Descenso a 55 KIAS', unit:'FPM',
+    ref_val:'~1.350 FPM', tol:'± 150 FPM',
+    cond:'2.200 lb, ISA, 55 KIAS', status:'pending',
+    procedure:'Establecer autorrotación a 55 KIAS. Medir tasa vertical mínima.',
+    rfm_params:[{label:'Velocidad Mín Sink', value:'55 KIAS'}, {label:'Sink teórico', value:'~1.350 FPM'}]
   },
   { id:'QTG-04-003', cat:'emergency', critical:true,
-    name:'⚠ Toque Autorrotación', ref:'POH §3',
-    param:'Tasa de impacto <300 FPM / RPM >90%', unit:'Toque',
-    ref_val:'Positivo', tol:'< 300 FPM',
+    name:'⚠ Autorrotación — Flare y Toque', ref:'POH §3',
+    param:'Tasa de impacto / RPM toque', unit:'FPM / %',
+    ref_val:'< 300 FPM / > 90% RPM', tol:'± 0',
     cond:'Flare a 40 ft', status:'pending',
-    procedure:'Culminar el perfil OEI (sin engine) de planeo con Flare enérgico en 40ft amortiguando en 8ft levantando colectivo. Resultar en tasa blanda de toque en simulación.',
-    rfm_params:[{label:'Toque FPM', value:'<300 FPM'}, {label:'Toque RPM', value:'>90%'}]
+    procedure:'Ejecutar Flare en 40 ft y nivelar en 8 ft. Lograr toque amortiguado.',
+    rfm_params:[{label:'Toque FPM', value:'< 300 FPM'}, {label:'RPM al toque', value:'> 90%'}]
   },
   { id:'QTG-04-010', cat:'emergency', critical:false,
-    name:'Low-G Pushover', ref:'SFAR 73',
-    param:'Inestabilidad inducida Low-G', unit:'Lateral',
-    ref_val:'Efectos representados (mast bumping risk)', tol:'Según física RHC',
+    name:'Maniobra Low-G Pushover', ref:'SFAR 73 / POH §3',
+    param:'Inestabilidad inducida', unit:'Cualitativo',
+    ref_val:'Mast bumping risk represented', tol:'Física RHC',
     cond:'Vuelo cíclico fw brusco', status:'pending',
-    procedure:'Generar picado acentuado G-Cero que provoca giro violento dextrógiro por empuje de rotor de cola. El modelo matemático DEBE representar esta amenaza de aeronaves con rotor Semirrígido.',
-    rfm_params:[{label:'Restricción POH', value:'Zero-G y Low G Pushovers prohibidos'}]
+    procedure:'Inducir condición de Low-G. Verificar representación de inestabilidad lateral.',
+    rfm_params:[{label:'Restricción POH', value:'Low-G prohibido'}]
   },
-  // VISUAL & CABIN
+
+  // AREA 5 — ENTORNO VISUAL Y MOVIMIENTO
+  { id:'QTG-05-001', cat:'visual', critical:false,
+    name:'Campo Visual — Cobertura MR', ref:'RAAC 60 / 6XSIM',
+    param:'Ángulo Horizontal / Vertical', unit:'°',
+    ref_val:'150°H x 40°V (Mín)', tol:'± 5°',
+    cond:'Sistema Varjo XR4', status:'pending',
+    procedure:'Medir el campo visual activo del sistema de realidad mixta.',
+    rfm_params:[{label:'Estándar Nivel B', value:'≥ 150°H'}]
+  },
   { id:'QTG-05-002', cat:'visual', critical:true,
-    name:'⚠ Latencia Visual', ref:'RAAC 60 App B',
+    name:'⚠ Latencia Sistema Visual (XR)', ref:'RAAC 60',
     param:'Retardo Motion-Visión', unit:'ms',
-    ref_val:'≤ 150 ms', tol:'± 0 ms sobre el máx',
-    cond:'Verificación hardware', status:'pending',
-    procedure:'Disparo de comando brusco pitch y tabulación cronométrica contra la actualización de frame del render visual. No mayor a 150 milisegundos.',
-    rfm_params:[{label:'FFS Nivel B standard', value:'< 150 ms'}]
+    ref_val:'≤ 150 ms', tol:'± 0 ms',
+    cond:'Verificación Hardware', status:'pending',
+    procedure:'Medir latencia entre comando físico y actualización de imagen en visor XR4.',
+    rfm_params:[{label:'Límite RAAC 60', value:'≤ 150 ms'}]
   },
+
+  // AREA 6 — CABINA E INSTRUMENTACIÓN
   { id:'QTG-06-002', cat:'cabina', critical:true,
     name:'⚠ Tacómetro Dual Motor/Rotor', ref:'POH §2',
-    param:'RPM agujas sobrepuestas operando', unit:'% RPM',
-    ref_val:'102% motor, 102% rotor', tol:'± 1%',
-    cond:'Potencia MCP en Gobernador On', status:'pending',
-    procedure:'Bajo gobernador de encendido "On", el correlador debería mantener las agujas conjuntas N1/NR al tope verde de 102%. Observar su separación en Auto.',
-    rfm_params:[{label:'Límite Gobernor', value:'102%'}]
+    param:'Precisión de agujas', unit:'% RPM',
+    ref_val:'102% Motor / 102% Rotor', tol:'± 1%',
+    cond:'Vuelo estabilizado', status:'pending',
+    procedure:'Verificar exactitud del tacómetro dual contra modelo aerodinámico.',
+    rfm_params:[{label:'Límite Operativo', value:'101% – 102% RPM'}]
   }
 ];
 
