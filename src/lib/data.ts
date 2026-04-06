@@ -167,14 +167,6 @@ export const QTG_DATA: QTGTest[] = [
     procedure:'Power-off glide a 90 KIAS. Medir tasa de descenso vertical (Glide ratio 4.7:1).',
     rfm_params:[{label:'Velocidad Glide', value:'90 KIAS'}, {label:'Sink teórico', value:'~1.900 FPM'}]
   },
-  { id:'QTG-04-002', cat:'emergency', critical:false,
-    name:'Autorrotación — Mínima Tasa Descenso', ref:'POH §3',
-    param:'Descenso a 55 KIAS', unit:'FPM',
-    ref_val:'~1.350 FPM', tol:'± 150 FPM',
-    cond:'2.200 lb, ISA, 55 KIAS', status:'pending',
-    procedure:'Establecer autorrotación a 55 KIAS. Medir tasa vertical mínima.',
-    rfm_params:[{label:'Velocidad Mín Sink', value:'55 KIAS'}, {label:'Sink teórico', value:'~1.350 FPM'}]
-  },
   { id:'QTG-04-003', cat:'emergency', critical:true,
     name:'⚠ Autorrotación — Flare y Toque', ref:'POH §3',
     param:'Tasa de impacto / RPM toque', unit:'FPM / %',
@@ -193,14 +185,6 @@ export const QTG_DATA: QTGTest[] = [
   },
 
   // AREA 5 — ENTORNO VISUAL Y MOVIMIENTO
-  { id:'QTG-05-001', cat:'visual', critical:false,
-    name:'Campo Visual — Cobertura MR', ref:'RAAC 60 / 6XSIM',
-    param:'Ángulo Horizontal / Vertical', unit:'°',
-    ref_val:'150°H x 40°V (Mín)', tol:'± 5°',
-    cond:'Sistema Varjo XR4', status:'pending',
-    procedure:'Medir el campo visual activo del sistema de realidad mixta.',
-    rfm_params:[{label:'Estándar Nivel B', value:'≥ 150°H'}]
-  },
   { id:'QTG-05-002', cat:'visual', critical:true,
     name:'⚠ Latencia Sistema Visual (XR)', ref:'RAAC 60',
     param:'Retardo Motion-Visión', unit:'ms',
