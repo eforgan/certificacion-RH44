@@ -14,7 +14,7 @@ import {
   ChartOptions
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { AW109E_SPECS } from '@/lib/data';
+import { R44_SPECS } from '@/lib/data';
 
 ChartJS.register(
   CategoryScale,
@@ -33,10 +33,10 @@ interface Props {
 }
 
 export default function WBChart({ currentWeight, currentCG }: Props) {
-  const limits = AW109E_SPECS.rfm.cg.limits;
+  const limits = R44_SPECS.poh.cg.limits;
   
-  const fwdLimit = limits.map(l => ({ x: l.fwd_mm, y: l.weight_kg }));
-  const aftLimit = limits.map(l => ({ x: l.aft_mm, y: l.weight_kg }));
+  const fwdLimit = limits.map(l => ({ x: l.fwd_in, y: l.weight_lb }));
+  const aftLimit = limits.map(l => ({ x: l.aft_in, y: l.weight_lb }));
 
   const data = {
     datasets: [
@@ -62,7 +62,7 @@ export default function WBChart({ currentWeight, currentCG }: Props) {
       {
         label: 'CG Actual',
         data: [{ x: currentCG, y: currentWeight }],
-        backgroundColor: currentCG > 0 && currentWeight > 0 ? (currentWeight <= 3000 ? '#10b981' : '#ef4444') : 'transparent',
+        backgroundColor: currentCG > 0 && currentWeight > 0 ? (currentWeight <= 2500 ? '#10b981' : '#ef4444') : 'transparent',
         borderColor: '#fff',
         borderWidth: 2,
         pointRadius: 8,
@@ -78,16 +78,16 @@ export default function WBChart({ currentWeight, currentCG }: Props) {
     scales: {
       x: {
         type: 'linear',
-        min: 2800,
-        max: 3800,
-        title: { display: true, text: 'Brazo Longitudinal (mm)', color: 'rgba(255,255,255,0.4)', font: { size: 10, weight: 'bold' } },
+        min: 88,
+        max: 108,
+        title: { display: true, text: 'Brazo Longitudinal (in)', color: 'rgba(255,255,255,0.4)', font: { size: 10, weight: 'bold' } },
         grid: { color: 'rgba(255, 255, 255, 0.05)' },
         ticks: { color: 'rgba(255, 255, 255, 0.3)', font: { size: 10 } }
       },
       y: {
-        min: 1500,
-        max: 3200,
-        title: { display: true, text: 'Masa Total (kg)', color: 'rgba(255,255,255,0.4)', font: { size: 10, weight: 'bold' } },
+        min: 1400,
+        max: 2600,
+        title: { display: true, text: 'Masa Total (lb)', color: 'rgba(255,255,255,0.4)', font: { size: 10, weight: 'bold' } },
         grid: { color: 'rgba(255, 255, 255, 0.05)' },
         ticks: { color: 'rgba(255, 255, 255, 0.3)', font: { size: 10 } }
       }
@@ -96,7 +96,7 @@ export default function WBChart({ currentWeight, currentCG }: Props) {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (context: any) => ` Peso: ${context.parsed.y} kg, CG: ${context.parsed.x} mm`
+          label: (context: any) => ` Peso: ${context.parsed.y} lb, CG: ${context.parsed.x} in`
         }
       }
     }

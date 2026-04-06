@@ -1,0 +1,14 @@
+{
+  "name": "FSTD Cert Manager — R44 II",
+  "short_name": "FSTD R44",
+  "description": "Sistema de Gestión de Certificación FSTD Robinson R44 II · RAAC Parte 60",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#1577C4",
+  "background_color": "#071528",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -72,7 +72,7 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="font-display font-black text-lg tracking-tighter text-white uppercase">FSTD Cert</h1>
-            <p className="text-[9px] uppercase tracking-[0.3em] text-white/90 font-black">AW109E Power</p>
+            <p className="text-[9px] uppercase tracking-[0.3em] text-white/90 font-black">R44 II Raven II</p>
           </div>
         </div>
       </div>

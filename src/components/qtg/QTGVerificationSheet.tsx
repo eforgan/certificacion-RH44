@@ -88,7 +88,7 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
               </div>
             </div>
             <h1 className="text-2xl font-black uppercase tracking-tight text-slate-900">Planilla de Verificación QTG</h1>
-            <p className="text-sm font-bold text-blue-700 uppercase tracking-widest">Documento de Certificación RAAC 60 — AW109E Power</p>
+            <p className="text-sm font-bold text-blue-700 uppercase tracking-widest">Documento de Certificación RAAC 60 — Robinson R44 II</p>
           </div>
           <div className="flex flex-col items-end gap-3">
             {/* Navegación entre planillas */}
@@ -203,7 +203,7 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
             <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6">
               <h4 className="text-[11px] font-black uppercase text-amber-700 mb-4 flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
-                Parámetros del Manual de Operación — AW109E Power RFM
+                Parámetros del Manual de Operación — Robinson R44 II RFM
               </h4>
               {test.rfm_params && test.rfm_params.length > 0 ? (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

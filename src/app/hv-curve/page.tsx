@@ -112,7 +112,7 @@ export default function HVCurvePage() {
             </span>
           </h2>
           <p className="text-white/40 font-medium max-w-2xl">
-            Análisis de las áreas críticas (Avoid Area) para el AW109E Power ajustado
+            Análisis de las áreas críticas (Avoid Area) para el Robinson R44 II ajustado
             por Peso de Despegue, Altitud de Densidad y condición de motor.
           </p>
         </div>

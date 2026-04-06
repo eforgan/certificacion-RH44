@@ -91,7 +91,7 @@ export const useAppStore = create<AppState>()(
       }),
     }),
     {
-      name: 'fstd-aw109e-storage',
+      name: 'fstd-r44-storage',
       storage: createJSONStorage(() => localStorage),
     }
   )

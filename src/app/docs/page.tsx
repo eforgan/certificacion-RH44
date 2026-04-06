@@ -37,7 +37,7 @@ export default function DocsPage() {
             Módulo de Documentación
             <span className="text-xs bg-brand/10 text-brand-light px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-brand/20">Audit-Ready</span>
           </h2>
-          <p className="text-white/40 font-medium">Expediente técnico y manuales de vuelo AW109E</p>
+          <p className="text-white/40 font-medium">Expediente técnico y manuales de vuelo Robinson R44 II</p>
         </div>
         
         <button className="btn-premium flex items-center gap-2 group py-3">

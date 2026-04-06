@@ -16,8 +16,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "FSTD Cert Manager | AW109E Power",
-  description: "Sistema de gestión para la certificación ANAC de simuladores de vuelo AgustaWestland AW109E Power bajo normativa RAAC Parte 60.",
+  title: "FSTD Cert Manager | Robinson R44 II",
+  description: "Sistema de gestión para la certificación ANAC de simuladores de vuelo Robinson R44 II Ravens II bajo normativa RAAC Parte 60.",
   manifest: "/manifest.json",
 };
 

@@ -231,10 +231,10 @@ export default function HVChart({ weight, altitude, condition }: Props) {
       <div className="flex items-center justify-between mb-4 px-2">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-widest text-white/30">
-            AW109E Power · Envolvente H/V
+            Robinson R44 II · Envolvente H/V
           </p>
           <p className="text-sm font-bold text-white/60">
-            {weight} kg · {altitude.toLocaleString()} ft · {condition === 'oei' ? 'Monomotor (OEI)' : 'Falla Total (Auto)'}
+            {weight} lb · {altitude.toLocaleString()} ft · Autorrotación
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -256,7 +256,7 @@ export default function HVChart({ weight, altitude, condition }: Props) {
 
       {/* Pie del gráfico */}
       <p className="text-center text-[9px] text-white/20 font-bold uppercase tracking-[0.2em] mt-4">
-        Simulación algorítmica con fines didácticos — No reemplaza el RFM AgustaWestland
+        Simulación algorítmica con fines didácticos — No reemplaza el RFM Robinson Helicopter
       </p>
     </div>
   );

@@ -12,7 +12,7 @@ import {
   Users as UsersIcon,
   Maximize2,
 } from 'lucide-react';
-import { AW109E_SPECS } from '@/lib/data';
+import { R44_SPECS } from '@/lib/data';
 import WBChart from '@/components/wb/WBChart';
 import UnitConverter from '@/components/wb/UnitConverter';
 import { clsx, type ClassValue } from 'clsx';
@@ -32,12 +32,12 @@ interface WBItem {
 }
 
 const initialItems: WBItem[] = [
-  { id: 'empty', label: 'Peso Vacío Equipado', weight: 1700, arm: 3390, editableWeight: true, editableArm: true },
-  { id: 'pilot', label: 'Piloto (PLT)', weight: 80, arm: 1980, editableWeight: true, editableArm: false },
-  { id: 'copilot', label: 'Co-Piloto (CP)', weight: 0, arm: 1980, editableWeight: true, editableArm: false },
-  { id: 'passengers', label: 'Pasajeros (PAX)', weight: 0, arm: 2950, editableWeight: true, editableArm: false },
-  { id: 'fuel', label: 'Combustible (JET A-1)', weight: 300, arm: 3500, editableWeight: true, editableArm: false },
-  { id: 'cargo', label: 'Equipaje / Carga', weight: 0, arm: 4300, editableWeight: true, editableArm: true },
+  { id: 'empty', label: 'Peso Vacío Equipado', weight: 1400, arm: 95.8, editableWeight: true, editableArm: true },
+  { id: 'pilot', label: 'Piloto', weight: 170, arm: 89.0, editableWeight: true, editableArm: false },
+  { id: 'copilot', label: 'Copiloto / Pasajero delante', weight: 0, arm: 89.0, editableWeight: true, editableArm: false },
+  { id: 'passengers', label: 'Pasajeros traseros', weight: 0, arm: 111.0, editableWeight: true, editableArm: false },
+  { id: 'fuel', label: 'Combustible (6 lb/gal)', weight: 177, arm: 100.4, editableWeight: true, editableArm: false },
+  { id: 'cargo', label: 'Equipaje', weight: 0, arm: 125.0, editableWeight: true, editableArm: true },
 ];
 
 export default function WBPage() {
@@ -47,7 +47,7 @@ export default function WBPage() {
   useEffect(() => {
     const w = items.reduce((acc, item) => acc + item.weight, 0);
     const m = items.reduce((acc, item) => acc + (item.weight * item.arm), 0);
-    const cg = w > 0 ? Math.round((m / w) * 10) / 10 : 0;
+    const cg = w > 0 ? Math.round((m / w) * 100) / 100 : 0;
     setTotals({ weight: w, moment: m, cg });
   }, [items]);
 
@@ -55,13 +55,13 @@ export default function WBPage() {
     setItems(prev => prev.map(item => item.id === id ? { ...item, weight } : item));
   };
 
-  const isOverweight = totals.weight > AW109E_SPECS.rfm.weights.mtow_kg;
+  const isOverweight = totals.weight > R44_SPECS.poh.weights.mtow_lb;
   
   // Validation for CG
   const isValidCG = (weight: number, cg: number) => {
-    const limit = AW109E_SPECS.rfm.cg.limits.find(l => weight <= l.weight_kg) || 
-                  AW109E_SPECS.rfm.cg.limits[AW109E_SPECS.rfm.cg.limits.length - 1];
-    return cg >= limit.fwd_mm && cg <= limit.aft_mm;
+    const limits = R44_SPECS.poh.cg.limits;
+    const limit = limits.find(l => weight <= l.weight_lb) || limits[limits.length - 1];
+    return cg >= limit.fwd_in && cg <= limit.aft_in;
   };
 
   const cgValid = isValidCG(totals.weight, totals.cg);
@@ -73,9 +73,9 @@ export default function WBPage() {
         <div className="space-y-1">
           <h2 className="text-3xl font-display font-bold text-white tracking-tight flex items-center gap-3">
             Computadoras de Certificación
-            <span className="text-xs bg-brand/10 text-brand-light px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-brand/20">Metric/Imperial</span>
+            <span className="text-xs bg-brand/10 text-brand-light px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-brand/20">Imperial</span>
           </h2>
-          <p className="text-white/40 font-medium">Validación de envolvente AW109E Power & Utilidades</p>
+          <p className="text-white/40 font-medium">Validación de envolvente R44 II Raven II & Utilidades</p>
         </div>
       </div>
 
@@ -88,8 +88,8 @@ export default function WBPage() {
                 <thead>
                   <tr className="bg-white/5 border-b border-white/5 uppercase text-[10px] font-bold tracking-[0.2em] text-white/40">
                     <th className="px-8 py-6">Componente</th>
-                    <th className="px-6 py-6 text-center">Peso (kg)</th>
-                    <th className="px-6 py-6 text-center">Brazo (mm)</th>
+                    <th className="px-6 py-6 text-center">Peso (lb)</th>
+                    <th className="px-6 py-6 text-center">Brazo (in)</th>
                     <th className="px-8 py-6 text-right">Momento</th>
                   </tr>
                 </thead>
@@ -119,7 +119,7 @@ export default function WBPage() {
                          <span className="text-sm font-mono text-white/30">{item.arm}</span>
                       </td>
                       <td className="px-8 py-5 text-right">
-                         <span className="text-sm font-mono text-white/60">{(item.weight * item.arm).toLocaleString()}</span>
+                         <span className="text-sm font-mono text-white/60">{(item.weight * item.arm).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                       </td>
                     </tr>
                   ))}
@@ -131,19 +131,19 @@ export default function WBPage() {
                        <span className={cn(
                          "text-xl font-display font-bold",
                          isOverweight ? "text-danger" : "text-white"
-                       )}>{totals.weight.toLocaleString()} kg</span>
+                       )}>{totals.weight.toLocaleString(undefined, { maximumFractionDigits: 0 })} lb</span>
                     </td>
                     <td className="px-6 py-6 text-center">
                        <div className="flex flex-col items-center">
                           <span className={cn(
                             "text-xl font-display font-bold",
                             !cgValid ? "text-warning" : "text-success"
-                          )}>{totals.cg} mm</span>
+                          )}>{totals.cg} in</span>
                           <span className="text-[10px] font-bold text-white/20 uppercase tracking-widest mt-1">CG</span>
                        </div>
                     </td>
                     <td className="px-8 py-6 text-right">
-                       <span className="text-sm font-mono text-white/40">{totals.moment.toLocaleString()}</span>
+                       <span className="text-sm font-mono text-white/40">{totals.moment.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                     </td>
                   </tr>
                 </tfoot>
@@ -162,8 +162,8 @@ export default function WBPage() {
                  </div>
                  <p className="text-sm text-white/60 leading-relaxed font-medium">
                    {isOverweight 
-                     ? `¡MTOW EXCEDIDO! Superó el límite de ${AW109E_SPECS.rfm.weights.mtow_kg} kg por ${(totals.weight - AW109E_SPECS.rfm.weights.mtow_kg).toLocaleString()} kg.`
-                     : `Masa total dentro de los límites operativos (≤ ${AW109E_SPECS.rfm.weights.mtow_kg} kg).`}
+                     ? `¡MTOW EXCEDIDO! Superó el límite de ${R44_SPECS.poh.weights.mtow_lb} lb por ${(totals.weight - R44_SPECS.poh.weights.mtow_lb).toLocaleString()} lb.`
+                     : `Masa total dentro de los límites operativos (≤ ${R44_SPECS.poh.weights.mtow_lb} lb).`}
                  </p>
               </div>
 
@@ -191,7 +191,7 @@ export default function WBPage() {
               <div className="flex items-center justify-between mb-8">
                  <div className="space-y-1">
                     <h3 className="text-xl font-display font-bold text-white tracking-tight">Gráfico de Envolvente CG</h3>
-                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Coordenadas: Estación (mm) vs Peso (kg)</p>
+                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Coordenadas: Estación (in) vs Peso (lb)</p>
                  </div>
                  <button className="p-3 rounded-xl bg-white/5 text-white/20 hover:text-white transition-all">
                     <Maximize2 className="w-5 h-5" />
@@ -205,15 +205,15 @@ export default function WBPage() {
               <div className="mt-8 pt-6 border-t border-white/5 grid grid-cols-3 gap-4">
                   <div className="text-center">
                      <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1">Datum</p>
-                     <p className="text-[11px] font-bold text-white/60">NARIZ (STA 0)</p>
+                     <p className="text-[11px] font-bold text-white/60 text-center leading-tight">100 in. adelante de mástil</p>
                   </div>
                   <div className="text-center">
                      <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1">Unidades</p>
-                     <p className="text-[11px] font-bold text-white/60">Sistema Métrico</p>
+                     <p className="text-[11px] font-bold text-white/60">Sistema Imperial</p>
                   </div>
                   <div className="text-center">
                      <p className="text-[10px] font-bold text-white/20 uppercase tracking-widest mb-1">Aeronave</p>
-                     <p className="text-[11px] font-bold text-white/60">AW109E Power</p>
+                     <p className="text-[11px] font-bold text-white/60">Robinson R44 II</p>
                   </div>
               </div>
            </div>

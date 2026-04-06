@@ -112,7 +112,7 @@ export default function FSTDLevelsTable() {
       <div className="bg-blue-500/10 p-6 flex items-center justify-center gap-4 border-t border-white/5">
         <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
         <p className="text-[10px] font-black text-blue-300 uppercase tracking-widest text-center">
-          El simulador AW109E Power de 6XSIM cumple con especificaciones de Nivel B con hardware certificado.
+          El simulador 6XSIM R44 II cumple con especificaciones de Nivel B con hardware certificado.
         </p>
       </div>
     </div>

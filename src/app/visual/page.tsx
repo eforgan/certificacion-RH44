@@ -18,16 +18,16 @@ import {
 const visualCards = [
   {
     id: 'helicopter',
-    title: 'AW109E Power — Exterior',
-    desc: 'Versión biturbina ligera de alta performance seleccionada para el FSTD.',
+    title: 'Robinson R44 II — Exterior',
+    desc: 'Helicóptero ligero con motor a pistón de alta performance seleccionado para el FSTD.',
     img: '/img/aw109e_exterior.jpg',
     type: 'Fotografía Real',
     tags: ['Aeronave', 'Diseño']
   },
   {
     id: 'cockpit-real',
-    title: 'Cockpit Real AW109E',
-    desc: 'Configuración original del fabricante AgustaWestland para referencia.',
+    title: 'Cockpit Real Robinson R44 II',
+    desc: 'Configuración original del fabricante Robinson Helicopter para referencia.',
     img: '/img/aw109e_cockpit.jpg',
     type: 'Fotografía Real',
     tags: ['Instrumental', 'Referencia']
@@ -55,7 +55,7 @@ const diagramCards = [
   {
     id: 'cg-envelope',
     title: 'Envolvente de CG',
-    desc: 'Límites de peso y centro de gravedad para el AW109E.',
+    desc: 'Límites de peso y centro de gravedad para el Robinson R44 II.',
     longDesc: 'La envolvente de Centro de Gravedad define el polígono de estabilidad longitudinal de la aeronave en relación a su MTOW. En el entorno simulado, exceder estos límites impacta en la autoridad del control cíclico y en los requerimientos de potencia. El modelo matemático del simulador es sometido a prueba cargando asimetrías extremas para validar su fidelidad técnica.',
     img: '/img/cg_envelope.png',
     icon: Weight,
@@ -73,7 +73,7 @@ export default function VisualPage() {
             Recursos Visuales
             <span className="text-xs bg-brand/10 text-brand-light px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-brand/20">Diagramas Técnicos</span>
           </h2>
-          <p className="text-white/40 font-medium">Modelado y referencias del 6XSIM AW109E Power</p>
+          <p className="text-white/40 font-medium">Modelado y referencias del 6XSIM R44 II Raven II</p>
         </div>
       </div>
 
