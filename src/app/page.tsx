@@ -16,5 +16,13 @@ export default function Home() {
 
   if (!mounted) return null;
 
+  if (!user) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-transparent relative z-10 p-6">
+        <LoginForm />
+      </div>
+    );
+  }
+
   return <DashboardView />;
 }
