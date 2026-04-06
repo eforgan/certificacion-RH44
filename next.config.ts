@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  transpilePackages: ["lucide-react"],
-  turbopack: {}
+  transpilePackages: ["lucide-react"]
 };
 
 export default nextConfig;
