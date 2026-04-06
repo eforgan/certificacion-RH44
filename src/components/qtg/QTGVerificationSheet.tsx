@@ -3,9 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
-import { X, CheckCircle2, AlertCircle, Calendar, Clock, User, FileText } from 'lucide-react';
+import { X, CheckCircle2, AlertCircle, Calendar, Clock, User, FileText, Download, Activity, Zap } from 'lucide-react';
 import { QTGTest } from '@/types';
 import { useAppStore } from '@/store/useAppStore';
+import { generateQTGReport } from '@/lib/reportGenerator';
+import { useTelemetry } from '@/hooks/useTelemetry';
 
 interface Props {
   test: QTGTest;
@@ -19,7 +21,7 @@ interface Props {
 }
 
 export default function QTGVerificationSheet({ test, onClose, currentIndex, totalCount, hasPrev, hasNext, onPrev, onNext }: Props) {
-  const { user } = useAppStore();
+  const { user, updateQTG, saveSession } = useAppStore();
   const [mounted, setMounted] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [evaluator, setEvaluator] = useState('');
@@ -27,6 +29,9 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
   const [comments, setComments] = useState('');
   const [date] = useState(new Date().toLocaleDateString('es-AR'));
   const [time] = useState(new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }));
+
+  // Telemetría Live
+  const { data: tel } = useTelemetry(isReady);
 
   useEffect(() => {
     setMounted(true);
@@ -36,6 +41,29 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
 
   const handleClose = () => {
     if (isReady) onClose();
+  };
+
+  const handleApprove = () => {
+    updateQTG(test.id, { status: 'approved' });
+    saveSession(); // Registramos en el historial
+    handleClose();
+  };
+
+  const handleReject = () => {
+    updateQTG(test.id, { status: 'rejected' });
+    saveSession();
+    handleClose();
+  };
+
+  const handleExportSinglePDF = () => {
+    generateQTGReport([{
+      id: test.id,
+      name: test.name,
+      cat: test.cat,
+      status: test.status,
+      ref_val: test.ref_val,
+      tol: test.tol
+    }], {});
   };
 
   if (!mounted) return null;
@@ -78,49 +106,77 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
       >
         {/* Header */}
         <div className="bg-slate-100 p-6 border-b-2 border-slate-200 flex justify-between items-start">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="aspect-[16/9] w-28 bg-white/10 rounded-lg overflow-hidden flex items-center justify-center shadow-inner">
-                <img src="/img/logo_modena_ceac.png" alt="Modena CEAC" className="w-full h-full object-cover brightness-110" />
+          <div className="flex items-start gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="aspect-[16/9] w-28 bg-white/10 rounded-lg overflow-hidden flex items-center justify-center shadow-inner">
+                  <img src="/img/logo_modena_ceac.png" alt="Modena CEAC" className="w-full h-full object-cover brightness-110" />
+                </div>
+                <div className="aspect-[16/9] w-28 bg-white/10 rounded-lg overflow-hidden flex items-center justify-center shadow-inner">
+                  <img src="/img/logo_6xsim.png" alt="6XSIM" className="w-full h-full object-cover brightness-110" />
+                </div>
               </div>
-              <div className="aspect-[16/9] w-28 bg-white/10 rounded-lg overflow-hidden flex items-center justify-center shadow-inner">
-                <img src="/img/logo_6xsim.png" alt="6XSIM" className="w-full h-full object-cover brightness-110" />
-              </div>
+              <h1 className="text-2xl font-black uppercase tracking-tight text-slate-900">Planilla de Verificación QTG</h1>
+              <p className="text-sm font-bold text-blue-700 uppercase tracking-widest">Documento de Certificación RAAC 60 — Robinson R44 II</p>
             </div>
-            <h1 className="text-2xl font-black uppercase tracking-tight text-slate-900">Planilla de Verificación QTG</h1>
-            <p className="text-sm font-bold text-blue-700 uppercase tracking-widest">Documento de Certificación RAAC 60 — Robinson R44 II</p>
+            {/* Live Telemetry Mini-Panel */}
+            <div className="hidden lg:flex items-center gap-4 ml-6 p-4 bg-slate-900 rounded-2xl border border-white/10 shadow-xl">
+               <div className="flex flex-col">
+                  <span className="text-[8px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-1">
+                    <Activity className="w-2.5 h-2.5" /> Live Sim
+                  </span>
+                  <div className="flex gap-4 mt-1">
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-black text-white">{tel.ias} <span className="text-white/30 text-[8px]">KT</span></span>
+                    </div>
+                    <div className="flex flex-col border-l border-white/10 pl-4">
+                      <span className="text-[10px] font-black text-white">{tel.rpm}% <span className="text-white/30 text-[8px]">RPM</span></span>
+                    </div>
+                  </div>
+               </div>
+               <Zap className="w-5 h-5 text-amber-400 animate-pulse pl-2 border-l border-white/10" />
+            </div>
           </div>
-          <div className="flex flex-col items-end gap-3">
-            {/* Navegación entre planillas */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => { if (hasPrev && onPrev) onPrev(); }}
-                disabled={!hasPrev}
-                className="w-12 h-12 rounded-xl bg-blue-600 disabled:bg-slate-200 text-white disabled:text-slate-400 font-black text-xl flex items-center justify-center transition-all hover:bg-blue-700 active:scale-95 disabled:cursor-not-allowed shadow"
-                title="QTG Anterior"
+          <div className="flex flex-col items-end gap-3 text-white">
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={handleExportSinglePDF}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all text-[10px] font-black uppercase tracking-widest shadow-lg"
               >
-                ‹
+                <Download className="w-4 h-4" />
+                PDF Ensayo
               </button>
-              {currentIndex != null && totalCount != null && (
-                <span className="px-3 py-1 bg-slate-200 rounded-lg text-slate-700 font-black text-sm min-w-[64px] text-center">
-                  {currentIndex} / {totalCount}
-                </span>
-              )}
-              <button
-                onClick={() => { if (hasNext && onNext) onNext(); }}
-                disabled={!hasNext}
-                className="w-12 h-12 rounded-xl bg-blue-600 disabled:bg-slate-200 text-white disabled:text-slate-400 font-black text-xl flex items-center justify-center transition-all hover:bg-blue-700 active:scale-95 disabled:cursor-not-allowed shadow"
-                title="QTG Siguiente"
+              {/* Navegación entre planillas */}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => { if (hasPrev && onPrev) onPrev(); }}
+                  disabled={!hasPrev}
+                  className="w-12 h-12 rounded-xl bg-blue-600 disabled:bg-slate-200 text-white disabled:text-slate-400 font-black text-xl flex items-center justify-center transition-all hover:bg-blue-700 active:scale-95 disabled:cursor-not-allowed shadow"
+                  title="QTG Anterior"
+                >
+                  ‹
+                </button>
+                {currentIndex != null && totalCount != null && (
+                  <span className="px-3 py-1 bg-slate-200 rounded-lg text-slate-700 font-black text-sm min-w-[64px] text-center">
+                    {currentIndex} / {totalCount}
+                  </span>
+                )}
+                <button
+                  onClick={() => { if (hasNext && onNext) onNext(); }}
+                  disabled={!hasNext}
+                  className="w-12 h-12 rounded-xl bg-blue-600 disabled:bg-slate-200 text-white disabled:text-slate-400 font-black text-xl flex items-center justify-center transition-all hover:bg-blue-700 active:scale-95 disabled:cursor-not-allowed shadow"
+                  title="QTG Siguiente"
+                >
+                  ›
+                </button>
+              </div>
+              <button 
+                onClick={handleClose}
+                className="p-3 hover:bg-slate-200 rounded-full transition-colors text-slate-400 hover:text-slate-900"
               >
-                ›
+                <X size={28} />
               </button>
             </div>
-            <button 
-              onClick={handleClose}
-              className="p-3 hover:bg-slate-200 rounded-full transition-colors text-slate-400 hover:text-slate-900"
-            >
-              <X size={28} />
-            </button>
           </div>
         </div>
 
@@ -255,16 +311,16 @@ export default function QTGVerificationSheet({ test, onClose, currentIndex, tota
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-100 p-8 border-t-2 border-slate-200 flex gap-6">
+        <div className="bg-slate-100 p-8 border-t-2 border-slate-200 flex gap-6 mt-auto">
           <button 
-            onClick={handleClose}
+            onClick={handleApprove}
             className="flex-1 bg-green-600 hover:bg-green-700 text-white py-6 rounded-2xl font-black text-xl flex items-center justify-center gap-3 shadow-lg shadow-green-900/20 transition-all active:scale-95"
           >
             <CheckCircle2 size={28} />
             CUMPLE QTG
           </button>
           <button 
-            onClick={handleClose}
+            onClick={handleReject}
             className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 border-2 border-red-200 py-6 rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all active:scale-95"
           >
             <AlertCircle size={28} />

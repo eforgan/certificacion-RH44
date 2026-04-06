@@ -10,10 +10,11 @@ import {
   BookOpen, 
   Image as ImageIcon,
   Calculator,
-  Settings,
   LogOut,
-  ChevronRight,
-  ShieldCheck
+  ShieldCheck,
+  Zap,
+  History,
+  Library
 } from 'lucide-react';
 import { useAppStore } from '@/store/useAppStore';
 import { clsx, type ClassValue } from 'clsx';
@@ -27,8 +28,10 @@ const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/' },
   { id: 'qtg', label: 'Gestión QTG', icon: FileText, href: '/qtg' },
   { id: 'fases', label: 'Fases Certificación', icon: CheckSquare, href: '/fases' },
+  { id: 'monitor', label: 'Monitor HW (XR4)', icon: Zap, href: '/monitor' },
+  { id: 'history', label: 'Historial', icon: History, href: '/history' },
+  { id: 'biblioteca', label: 'Biblioteca POH', icon: Library, href: '/biblioteca' },
   { id: 'normativa', label: 'Normativa RAAC', icon: ShieldCheck, href: '/normativa' },
-  { id: 'docs', label: 'Documentación', icon: BookOpen, href: '/docs' },
   { id: 'visual', label: 'Recursos Visuales', icon: ImageIcon, href: '/visual' },
   { id: 'wb', label: 'Computadoras W&B', icon: Calculator, href: '/wb' },
 ];

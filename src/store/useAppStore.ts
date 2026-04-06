@@ -12,6 +12,7 @@ interface AppState {
   activity: Activity[];
   snapshots: Snapshot[];
   checklist: Record<string, boolean>;
+  sessions: any[]; // Historial de sesiones QTG (snapshots)
   
   // Actions
   setUser: (user: User | null) => void;
@@ -22,6 +23,7 @@ interface AppState {
   addDocument: (doc: Documento) => void;
   toggleChecklist: (id: string) => void;
   addSnapshot: (snapshot: Snapshot) => void;
+  saveSession: () => void;
   resetState: () => void;
 }
 
@@ -39,6 +41,7 @@ export const useAppStore = create<AppState>()(
       activity: [],
       snapshots: [],
       checklist: {},
+      sessions: [],
 
       setUser: (user) => set({ user }),
       
@@ -77,6 +80,22 @@ export const useAppStore = create<AppState>()(
         return { snapshots: [...state.snapshots.slice(-59), snapshot] };
       }),
 
+      saveSession: () => set((state) => ({
+        sessions: [
+          {
+            id: `SESS-${Date.now()}`,
+            date: new Date().toLocaleString(),
+            stats: {
+              total: state.qtg.length,
+              approved: state.qtg.filter(q => q.status === 'approved').length,
+              rejected: state.qtg.filter(q => q.status === 'rejected').length,
+            },
+            data: state.qtg.map(q => ({ id: q.id, status: q.status }))
+          },
+          ...state.sessions
+        ]
+      })),
+
       resetState: () => set({
         qtg: QTG_DATA,
         reqs: FASES_DATA.reduce((acc, f) => {
@@ -88,10 +107,11 @@ export const useAppStore = create<AppState>()(
         activity: [],
         snapshots: [],
         checklist: {},
+        sessions: [],
       }),
     }),
     {
-      name: 'fstd-r44-storage',
+      name: 'fstd-r44-storage-v2',
       storage: createJSONStorage(() => localStorage),
     }
   )

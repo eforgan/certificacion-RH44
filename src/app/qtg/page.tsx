@@ -12,6 +12,7 @@ import { Category } from '../../types';
 import QTGTable from '../../components/qtg/QTGTable';
 import QTGDetailModal from '../../components/qtg/QTGDetailModal';
 import QTGVerificationSheet from '../../components/qtg/QTGVerificationSheet';
+import { generateQTGReport } from '../../lib/reportGenerator';
 
 export default function QTGPage() {
   const { qtg } = useAppStore();
@@ -35,6 +36,18 @@ export default function QTGPage() {
                          item.id.toLowerCase().includes(search.toLowerCase());
     return matchesFilter && matchesSearch;
   });
+
+  const handleExportPDF = () => {
+    const mappedTests = qtg.map(t => ({
+      id: t.id,
+      name: t.name,
+      cat: t.cat,
+      status: t.status,
+      ref_val: t.ref_val,
+      tol: t.tol
+    }));
+    generateQTGReport(mappedTests, {});
+  };
 
   const activeSheetData = activeSheet ? qtg.find(q => q.id === activeSheet) : null;
 
@@ -69,11 +82,11 @@ export default function QTGPage() {
         </div>
         <div className="flex items-center gap-3">
            <button 
-             onClick={() => {}}
-             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 hover:bg-white text-blue-600 transition-all text-xs font-black uppercase tracking-widest"
+             onClick={handleExportPDF}
+             className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-brand text-white border border-brand/20 hover:scale-105 active:scale-95 transition-all text-xs font-black uppercase tracking-widest shadow-[0_10px_20px_rgba(30,64,175,0.3)]"
            >
              <Download className="w-4 h-4" />
-             Exportar CSV
+             Generar Reporte PDF
            </button>
         </div>
       </div>
