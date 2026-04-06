@@ -16,18 +16,18 @@ export default function BibliotecaPage() {
     { 
       id: 1, 
       title: 'Robinson R44 II POH', 
-      date: 'Sustituir con tu PDF', 
-      size: 'Local', 
+      date: 'Cargado (Local)', 
+      size: '6.9 MB', 
       type: 'Oficial',
-      url: '/docs/r44_poh.pdf'
+      url: '/docs/r44ii_poh_full_book_0586eefd22.pdf'
     },
     { 
       id: 2, 
       title: 'RAAC Parte 60 - FSTD', 
-      date: 'Sustituir con tu PDF', 
-      size: 'Local', 
+      date: 'Cargado (Local)', 
+      size: '11.4 MB', 
       type: 'Normativa',
-      url: '/docs/raac_60.pdf'
+      url: '/docs/anexo-parte-60.pdf'
     },
     { 
       id: 3, 
